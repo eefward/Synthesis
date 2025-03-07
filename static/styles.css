@@ -5,26 +5,54 @@ body {
   height: 100vh;
   background-color: rgb(77, 77, 77);
   margin: 0;
+  font-family: Arial, sans-serif;
 }
+
 .piano {
   display: flex;
-  border: 2px solid black;
   background: black;
   padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow-x: auto;
+  max-width: 100%;
 }
+
 .white-key {
-  width: 25px;
+  width: 28px;
   height: 150px;
   background: white;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  margin-right: 2px;
   position: relative;
+  z-index: 1;
 }
+
 .black-key {
-  width: 15px;
+  width: 16px;
   height: 90px;
   background: black;
+  border-radius: 0 0 3px 3px;
   position: absolute;
-  top: 0;
-  left: 70%;
-  z-index: 1;
+  z-index: 2;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.white-key:hover {
+  background: #f0f0f0;
+}
+
+.black-key:hover {
+  background: #333;
+}
+
+.key-label {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  color: #888;
 }
