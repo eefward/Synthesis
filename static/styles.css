@@ -1,5 +1,30 @@
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   background-color: rgb(77, 77, 77);
   margin: 0;
-  height: 100vh;
+}
+.piano {
+  display: flex;
+  border: 2px solid black;
+  background: black;
+  padding: 10px;
+}
+.white-key {
+  width: 25px;
+  height: 150px;
+  background: white;
+  border: 1px solid black;
+  position: relative;
+}
+.black-key {
+  width: 15px;
+  height: 90px;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 70%;
+  z-index: 1;
 }
