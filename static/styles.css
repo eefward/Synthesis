@@ -8,6 +8,12 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.piano-container {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
 .piano {
   display: flex;
   background: black;
@@ -15,12 +21,11 @@ body {
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
   position: relative;
-  overflow-x: auto;
-  max-width: 100%;
+  white-space: nowrap;
 }
 
 .white-key {
-  width: 28px;
+  width: 28px; /* Fixed width */
   height: 150px;
   background: white;
   border: 1px solid #ccc;
@@ -28,6 +33,7 @@ body {
   margin-right: 2px;
   position: relative;
   z-index: 1;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .black-key {
@@ -38,6 +44,8 @@ body {
   position: absolute;
   z-index: 2;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0; /* Prevent shrinking */
+  top: 10px; /* Align with the top of white keys */
 }
 
 .white-key:hover {
@@ -55,4 +63,8 @@ body {
   text-align: center;
   font-size: 10px;
   color: #888;
+}
+
+.black-key .key-label {
+  color: #ddd;
 }
