@@ -22,6 +22,7 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
   position: relative;
   white-space: nowrap;
+  user-select: none;
 }
 
 .white-key {
@@ -67,4 +68,13 @@ body {
 
 .black-key .key-label {
   color: #ddd;
+}
+
+#information {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
 }
