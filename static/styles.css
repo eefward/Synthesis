@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(77, 77, 77);
+  background-color: rgb(65, 65, 65);
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -74,9 +74,37 @@ body {
 
 #information {
   position: absolute;
-  bottom: 20px;
+  top: 20px; 
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   color: white;
+  font-size: 18px;
+}
+
+#toggle-info {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 12px;
+  background: #ffb158;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#toggle-info:hover {
+  background: #e69a48;
+}
+
+/* edit speed here */
+.slide-bar {
+  position: fixed;
+  bottom: 10vh;
+  height: 100px;
+  background: rgba(255, 177, 88, 0.8);
+  border-radius: 2px;
+  transition: transform 1s ease-out, opacity 1s ease-out;
 }
