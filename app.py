@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request, jsonify, session
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 @app.route("/")
 def home():
