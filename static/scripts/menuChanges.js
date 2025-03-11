@@ -1,5 +1,5 @@
 function toggleInfoBox(isVisible, debounce) {
-    const infoBox = document.getElementById('information');
+    const infoBox = document.getElementById('notePressedInfo');
     
     if (isVisible) {
         infoBox.style.opacity = '0';
@@ -13,4 +13,3 @@ function toggleInfoBox(isVisible, debounce) {
         }, 10);
     }
 }
-

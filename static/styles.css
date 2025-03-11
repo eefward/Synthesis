@@ -70,7 +70,7 @@ body {
   color: #ddd;
 }
 
-#information {
+#notePressedInfo {
   position: relative;
   text-align: center;
   color: white;
@@ -88,7 +88,7 @@ body {
   z-index: 1000;
 }
 
-#toggle-info {
+#toggleInfo {
   padding: 8px 12px;
   background: #ffb158;
   color: white;
@@ -98,7 +98,7 @@ body {
   font-size: 14px;
 }
 
-#toggle-info:hover {
+#toggleInfo:hover {
   background: #e69a48;
 }
 
