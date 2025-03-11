@@ -20,11 +20,13 @@ body {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   white-space: nowrap;
   user-select: none;
 }
-
 .white-key {
   width: 28px; /* Fixed width */
   height: 150px;
