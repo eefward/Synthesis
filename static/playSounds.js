@@ -2,7 +2,7 @@ const keys = document.querySelectorAll('.key');
 const information = document.getElementById('information');
 
 keys.forEach(key => {
-    key.addEventListener('click', () => {
+    key.addEventListener('mousedown', () => {
         information.innerText = `You pressed ${key.dataset.note}`;
         
         // the # messes with the url so you have to use that function (makes it # become %23)
