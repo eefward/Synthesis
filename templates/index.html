@@ -9,11 +9,23 @@
 </head>
 <body>
     <div class="piano" id="piano"></div>
-    <div id="information"></div>
-    <script src="/static/createPiano.js"></script>
-    <script src="/static/playSounds.js"></script>
-    <script src="/static/visualNotes.js"></script>
-    <button id="toggle-info">Toggle Key Clicked</button>
+    
+    
+    <div class="menu">
+        <button id="toggle-info">Toggle Key Clicked</button>
+        <select class="form-select">
+            <option selected>Orange</option>
+            <option value="1">Red</option>
+            <option value="2">Green</option>
+            <option value="3">Blue</option>
+        </select>
 
+        <div id="information"></div>
+    </div>
+
+    <script src="/static/scripts/createPiano.js"></script>
+    <script src="/static/scripts/playSounds.js"></script>
+    <script src="/static/scripts/visualNotes.js"></script>
+    <script src="/static/scripts/menuChanges.js"></script>
 </body>
 </html>

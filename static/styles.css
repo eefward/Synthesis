@@ -8,11 +8,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.piano-container {
-  max-width: 100%;
-  overflow-x: auto;
-  padding: 20px 0;
-}
 
 .piano {
   display: flex;
@@ -26,7 +21,10 @@ body {
   transform: translateX(-50%);
   white-space: nowrap;
   user-select: none;
+  overflow-x: auto; /* Adds horizontal scrollbar when needed */
+  max-width: 98vw; /* Optional: limits width to 90% of viewport width */
 }
+
 .white-key {
   width: 28px; /* Fixed width */
   height: 150px;
@@ -73,19 +71,24 @@ body {
 }
 
 #information {
-  position: absolute;
-  top: 20px; 
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   text-align: center;
   color: white;
   font-size: 18px;
 }
 
+.menu {
+  position: fixed;
+  top: 20px; 
+  left: 20px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  gap: 15px;
+  z-index: 1000;
+}
+
 #toggle-info {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   padding: 8px 12px;
   background: #ffb158;
   color: white;
@@ -99,12 +102,20 @@ body {
   background: #e69a48;
 }
 
-/* edit speed here */
+.form-select {
+  padding: 8px;
+  font-size: 14px;
+}
+
 .slide-bar {
   position: fixed;
   bottom: 10vh;
   height: 100px;
-  background: rgba(255, 177, 88, 0.8);
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 200, 0, 0.9) 0%, 
+    rgba(255, 85, 0, 1) 100%
+  );
   border-radius: 2px;
   transition: transform 1s ease-out, opacity 1s ease-out;
 }
