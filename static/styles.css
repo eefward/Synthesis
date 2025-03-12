@@ -110,12 +110,6 @@ body {
 .slide-bar {
   position: fixed;
   bottom: 10vh;
-  height: 100px;
-  background: linear-gradient(
-    135deg, 
-    rgba(255, 200, 0, 0.9) 0%, 
-    rgba(255, 85, 0, 1) 100%
-  );
-  border-radius: 2px;
-  transition: transform 1s ease-out, opacity 1s ease-out;
+  border-radius: 4px;
 }
+

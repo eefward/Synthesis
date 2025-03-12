@@ -6,26 +6,36 @@
     <link rel="stylesheet" href="/static/styles.css">
 
     <title>piano</title>
+    <!-- so you can manipulate this part of the css with javascript-->
+    <style id="slidingBarsCSS">
+        .whiteSlidingBar {
+            background: linear-gradient(135deg, rgba(255, 200, 0, 0.9) 0%, rgba(255, 85, 0, 1) 100%);
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .blackSlidingBar {
+            background: linear-gradient(135deg, rgba(200, 150, 0, 0.9) 0%, rgba(200, 30, 0, 1) 100%);
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+    </style>
 </head>
 <body>
     <div class="piano" id="piano"></div>
-    
+    <div id="slidingBars"></div>
     
     <div class="menu">
         <button id="toggleInfo">Toggle Key Clicked</button>
         <select id="selectColor" class="form-select">
-            <option selected>Orange</option>
-            <option value="1">Red</option>
-            <option value="2">Green</option>
-            <option value="3">Blue</option>
+            <option selected value="Orange">Orange</option>
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
         </select>
 
-        <div id="information"></div>
+        <div id="notePressedInfo"></div>
     </div>
 
     <script src="/static/scripts/createPiano.js"></script>
-    <script src="/static/scripts/playSounds.js"></script>
-    <script src="/static/scripts/visualNotes.js"></script>
+    <script src="/static/scripts/keyPressed.js"></script>
     <script src="/static/scripts/menuChanges.js"></script>
 </body>
 </html>
