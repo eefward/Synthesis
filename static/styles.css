@@ -8,7 +8,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-
 .piano {
   display: flex;
   background: black;
@@ -86,6 +85,8 @@ body {
   align-items: center; 
   gap: 15px;
   z-index: 1000;
+  max-width: 200px;
+  flex-wrap: wrap;
 }
 
 #toggleInfo {
@@ -112,4 +113,3 @@ body {
   bottom: 10vh;
   border-radius: 4px;
 }
-
