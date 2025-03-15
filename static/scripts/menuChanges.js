@@ -27,7 +27,9 @@ keyToggleButton.addEventListener('click', () => {
 // --------------------------------------------------
 
 const selectedColor = document.getElementById('selectColor');
+const customColor = document.getElementById("customColor");
 const css = document.getElementById('slidingBarsCSS');
+
 selectedColor.addEventListener('change', () => {
     const color = selectedColor.value;
     
@@ -75,5 +77,22 @@ selectedColor.addEventListener('change', () => {
             transition: transform 1s ease-out, opacity 1s ease-out;
         }
         `;
+    } else if (color === "Custom") {
+        customColor.hidden = false;
+        customColor.innerHTML = `
+    <div class="centerContent">
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Top Color</span>
+        <input type="text" class="form-control" placeholder="0, 0, 0, .8">
+      </div>
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Btm Color</span>
+        <input type="text" class="form-control">
+      </div>
+      <p>in rgba format</p>
+    </div>
+        `;
     }
+
+    if (color !== "Custom") customColor.innerHTML = '';
 });
