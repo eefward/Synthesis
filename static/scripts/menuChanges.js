@@ -27,7 +27,7 @@ keyToggleButton.addEventListener('click', () => {
 // --------------------------------------------------
 
 const selectedColor = document.getElementById('selectColor');
-const customColor = document.getElementById("customColor");
+const background = document.getElementById("background");
 const css = document.getElementById('slidingBarsCSS');
 
 selectedColor.addEventListener('change', () => {
@@ -78,21 +78,27 @@ selectedColor.addEventListener('change', () => {
         }
         `;
     } else if (color === "Custom") {
-        customColor.hidden = false;
-        customColor.innerHTML = `
-    <div class="centerContent">
-      <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Top Color</span>
-        <input type="text" class="form-control" placeholder="0, 0, 0, .8">
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Btm Color</span>
-        <input type="text" class="form-control">
-      </div>
-      <p>in rgba format</p>
-    </div>
+        background.hidden = false;
+        background.innerHTML = `
+            <div class="centerContent">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Top Color</span>
+                    <input type="text" class="form-control" placeholder="0, 0, 0, .8">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Btm Color</span>
+                    <input type="text" class="form-control">
+                </div>
+                <p class="d-inline">in rgba format</p>
+            </div>
         `;
+
+        background.addEventListener('click', () => {
+            console.log("Ereased background")
+            background.innerHTML = '';
+            background.hidden = true;
+        });
     }
 
-    if (color !== "Custom") customColor.innerHTML = '';
+    if (color !== "Custom") background.innerHTML = '';
 });
