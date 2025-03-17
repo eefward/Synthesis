@@ -26,10 +26,31 @@ keyToggleButton.addEventListener('click', () => {
 
 // --------------------------------------------------
 
+function validateInput() {
+    const redTop = document.getElementById('redTop');
+    const greenTop = document.getElementById('greenTop');
+    const blueTop = document.getElementById('blueTop');
+    const transparencyTop = document.getElementById('transparencyTop');
+    const redBottom = document.getElementById('redBottom');
+    const greenBottom= document.getElementById('greenBottom');
+    const blueBottom = document.getElementById('blueBottom');
+    const transparencyBotom = document.getElementById('tranparencyBottom');
+
+    const colors = [redTop, greenTop, blueTop, redBottom, greenBottom, blueBottom];
+    for (let i = 0; i < colors.length; i++) {
+        const parsed = parseInt(colors[i].value);
+        if (!(Number.isInteger(parsed) && parsed.toString() === colors[i].trim())) {
+            return alert("Integers and valid input only");
+        } else if (!(0 <= parsed && parsed <= 255)) {
+            return alert("Color values can only be 0-255");
+        }
+    }
+
+
+}
+
 const selectedColor = document.getElementById('selectColor');
-const background = document.getElementById("background");
 const css = document.getElementById('slidingBarsCSS');
-const customColor = document.getElementById('customColor');
 
 selectedColor.addEventListener('change', () => {
     const color = selectedColor.value;
@@ -79,37 +100,20 @@ selectedColor.addEventListener('change', () => {
         }
         `;
     } else if (color === "Custom") {
-        background.hidden = false;
-        background.innerHTML = `
-            <div class="centerContent">
-                <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Top Color</span>
-                    <input type="text" class="form-control" placeholder="0, 0, 0, .8">
-                </div>
-                <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Btm Color</span>
-                    <input type="text" class="form-control">
-                </div>
-                <button class="btn btn-primary">Enter</button>
-                <p class="d-inline">in rgba format</p>
-            </div>
-        `;
-
-        customColor.selected = true;
-        customColor.textContent = "test";
+        const customColorBackground = document.getElementById("background");
+        const customColor = document.getElementById('customColor');
+        const btn = document.getElementById('customColorBtn');
         
-        background.addEventListener('click', () => {
-            console.log("Ereased background")
-            background.textContent = 'test';
-            background.hidden = true;
+        customColorBackground.hidden = false;
+        customColor.selected = true;
+
+        customColorBackground.addEventListener('click', (event) => {
+            if (event.target === background) 
+                customColorBackground.hidden = true;
         });
 
-        
-    }
-
-    if (color !== "Custom") {
-        background.innerHTML = '';
-        customColor.dsiabled = true;
-        customColor.textContent = '';
+        btn.addEventListener('click', () => {
+            validateInput()
+        })
     }
 });
