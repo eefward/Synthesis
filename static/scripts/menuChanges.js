@@ -28,7 +28,7 @@ keyToggleButton.addEventListener('click', () => {
 
 const css = document.getElementById('slidingBarsCSS');
 
-function validateInput() {
+function validateAndSaveInput() {
     document.querySelectorAll('.colors').forEach(color => {
         const num = Number(color.value);
 
@@ -92,6 +92,7 @@ function validateInput() {
             transition: transform 1s ease-out, opacity 1s ease-out;
         }
     `;
+    localStorage.setItem('colorStorage', JSON.stringify(rgba));
 }
 
 const selectedColor = document.getElementById('selectColor');
@@ -147,7 +148,6 @@ selectedColor.addEventListener('change', () => {
     } else if (color === "Custom") {
         const customColorBackground = document.getElementById("background");
         const customColor = document.getElementById('customColor');
-        const btn = document.getElementById('customColorBtn');
         
         customColorBackground.hidden = false;
         customColor.selected = true;
@@ -158,9 +158,10 @@ selectedColor.addEventListener('change', () => {
         });
 
         const form = document.querySelector('form');
-        btn.addEventListener('click', () => {
-            validateInput()
-            console.log("pressed");
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            validateAndSaveInput()
             customColorBackground.hidden = true;
         });
     }
