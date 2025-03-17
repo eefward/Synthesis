@@ -29,38 +29,66 @@ keyToggleButton.addEventListener('click', () => {
 const css = document.getElementById('slidingBarsCSS');
 
 function validateInput() {
-    const redTop = document.getElementById('redTop');
-    const greenTop = document.getElementById('greenTop');
-    const blueTop = document.getElementById('blueTop');
-    const transparencyTop = document.getElementById('transparencyTop');
-    const redBottom = document.getElementById('redBottom');
-    const greenBottom = document.getElementById('greenBottom');
-    const blueBottom = document.getElementById('blueBottom');
-    const transparencyBotom = document.getElementById('tranparencyBottom');
-
-    const colors = [redTop, greenTop, blueTop, redBottom, greenBottom, blueBottom];
-    for (let i = 0; i < colors.length; i++) {
-        const num = Number(colors[i].value);
+    document.querySelectorAll('.colors').forEach(color => {
+        const num = Number(color.value);
 
         if (isNaN(num)) return alert("Integers and valid input only");
         else if (!(0 <= num && num <= 255)) return alert("Color values can only be 0-255");
-    }
+    });
 
-    const transparencies = [transparencyTop, transparencyBotom];
-    for (let i = 0; i < transparencies.length; i++) {
-        const num = Number(transparencies[i].value);
+    document.querySelectorAll('.transparencies').forEach(transparency => {
+        const num = Number(transparency.value);
 
         if (isNaN(num)) return alert("Integers and valid input only");
         else if (!(0 <= num && num <= 1)) return alert("Transparency values can only be 0-1");
+    });
+
+    const rgba = {
+        white: {
+            top: {
+                red: Number(document.getElementById('WTR').value), 
+                green: Number(document.getElementById('WTG').value), 
+                blue: Number(document.getElementById('WTB').value),
+                transparency: Number(document.getElementById('WTT').value)
+            },
+            bottom: {
+                red: Number(document.getElementById('WBR').value), 
+                green: Number(document.getElementById('WBG').value), 
+                blue: Number(document.getElementById('WBB').value), 
+                transparency: Number(document.getElementById('WBT').value)
+            }
+        }, 
+        black : {
+            top: {
+                red: Number(document.getElementById('BTR').value), 
+                green: Number(document.getElementById('BTG').value), 
+                blue: Number(document.getElementById('BTB').value), 
+                transparency: Number(document.getElementById('BTT').value)
+            },
+            bottom: {
+                red: Number(document.getElementById('BBR').value), 
+                green: Number(document.getElementById('BBG').value), 
+                blue: Number(document.getElementById('BBB').value), 
+                transparency: Number(document.getElementById('BBT').value)
+            }
+        }
     }
 
     css.innerHTML = `
         .whiteSlidingBar {
-            background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(255, 0, 0, 1) 100%); /* Tomato to Red */
+            background: linear-gradient(
+                135deg, 
+                rgba(${rgba.white.top.red}, ${rgba.white.top.green}, ${rgba.white.top.blue}, ${rgba.white.top.transparency}) 0%,
+                rgba(${rgba.white.bottom.red}, ${rgba.white.bottom.green}, ${rgba.white.bottom.blue}, ${rgba.white.bottom.transparency}) 100%
+            );
             transition: transform 1s ease-out, opacity 1s ease-out;
         }
         .blackSlidingBar {
-            background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(139, 0, 0, 1) 100%); /* Dark Red */
+            background: linear-gradient(
+                135deg, 
+                rgba(${rgba.black.top.red}, ${rgba.black.top.green}, ${rgba.black.top.blue}, ${rgba.black.top.transparency}) 0%,
+                rgba(${rgba.black.bottom.red}, ${rgba.black.bottom.green}, ${rgba.black.bottom.blue}, ${rgba.black.bottom.transparency}) 100%
+            );
             transition: transform 1s ease-out, opacity 1s ease-out;
         }
     `;
@@ -75,33 +103,33 @@ selectedColor.addEventListener('change', () => {
     if (color === 'Red') {
         css.innerHTML = `
             .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(255, 0, 0, 1) 100%); /* Tomato to Red */
+                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(255, 0, 0, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
             .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(139, 0, 0, 1) 100%); /* Dark Red */
+                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(139, 0, 0, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
         `;
     } else if (color === 'Green') {
         css.innerHTML = `
             .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(34, 139, 34, 1) 100%); /* Light Green to Forest Green */
+                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(34, 139, 34, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
             .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(0, 100, 0, 1) 100%); /* Dark Green */
+                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(0, 100, 0, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
         `;
     } else if (color === 'Blue') {
         css.innerHTML = `
             .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 255, 1) 100%); /* Light Blue to Blue */
+                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 255, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
             .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 139, 1) 100%); /* Dark Blue */
+                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 139, 1) 100%);
                 transition: transform 1s ease-out, opacity 1s ease-out;
             }
         `;
@@ -129,8 +157,11 @@ selectedColor.addEventListener('change', () => {
                 customColorBackground.hidden = true;
         });
 
+        const form = document.querySelector('form');
         btn.addEventListener('click', () => {
             validateInput()
-        })
+            console.log("pressed");
+            customColorBackground.hidden = true;
+        });
     }
 });
