@@ -29,6 +29,7 @@ keyToggleButton.addEventListener('click', () => {
 const selectedColor = document.getElementById('selectColor');
 const background = document.getElementById("background");
 const css = document.getElementById('slidingBarsCSS');
+const customColor = document.getElementById('customColor');
 
 selectedColor.addEventListener('change', () => {
     const color = selectedColor.value;
@@ -89,16 +90,26 @@ selectedColor.addEventListener('change', () => {
                     <span class="input-group-text bg-secondary text-light" id="inputGroup-sizing-sm">Btm Color</span>
                     <input type="text" class="form-control">
                 </div>
+                <button class="btn btn-primary">Enter</button>
                 <p class="d-inline">in rgba format</p>
             </div>
         `;
 
+        customColor.selected = true;
+        customColor.textContent = "test";
+        
         background.addEventListener('click', () => {
             console.log("Ereased background")
-            background.innerHTML = '';
+            background.textContent = 'test';
             background.hidden = true;
         });
+
+        
     }
 
-    if (color !== "Custom") background.innerHTML = '';
+    if (color !== "Custom") {
+        background.innerHTML = '';
+        customColor.dsiabled = true;
+        customColor.textContent = '';
+    }
 });
