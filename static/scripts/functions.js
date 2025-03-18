@@ -3,7 +3,7 @@ function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
     // If they want to see the key pressed
-    information.innerText = note;
+    document.getElementById('notePressedInfo').innerText = note;
     
     // Play sound
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
@@ -46,3 +46,5 @@ function noteFormat(num) {
     const octave = Math.floor((num - 12) / 12);
     return notes[index] + octave;
 }
+
+// -------------------------------------------------- other sthings

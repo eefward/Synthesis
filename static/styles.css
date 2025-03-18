@@ -20,12 +20,12 @@ body {
   transform: translateX(-50%);
   white-space: nowrap;
   user-select: none;
-  overflow-x: auto; /* Adds horizontal scrollbar when needed */
-  max-width: 98vw; /* Optional: limits width to 90% of viewport width */
+  overflow-x: auto;
+  max-width: 98vw;
 }
 
 .white-key {
-  width: 28px; /* Fixed width */
+  width: 28px;
   height: 150px;
   background: white;
   border: 1px solid #ccc;
@@ -33,7 +33,7 @@ body {
   margin-right: 2px;
   position: relative;
   z-index: 1;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
 }
 
 .black-key {
@@ -44,8 +44,8 @@ body {
   position: absolute;
   z-index: 2;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  flex-shrink: 0; /* Prevent shrinking */
-  top: 10px; /* Align with the top of white keys */
+  flex-shrink: 0; 
+  top: 10px;
 }
 
 .white-key:hover {
