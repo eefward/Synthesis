@@ -4,20 +4,33 @@ let isMouseDown = false; // Track if mouse is pressed
 let lastPlayedNote = null; // Track the last played note to avoid repetition
 let lastPlayedTime = 0; // Store the time the last note was played
 const cooldown = 100; // Cooldown in milliseconds (e.g., 100ms = 0.1s)
+let recordingStartTime = null;
+
+let isRecording = false;
+let recordedNotes = [];
 
 keys.forEach(key => {
     key.addEventListener('mousedown', () => {
-        isMouseDown = true;
+        if (recordingStartTime == null) {
+            recordingStartTime = Date.now();
+        }
+
+        const elapsedTime = (Date.now() - recordingStartTime) / 1000; 
         playNoteWithEffect(key.dataset.note);
+        recordedNotes.push({ note: key.dataset.note, time: elapsedTime }); 
         lastPlayedNote = key.dataset.note; // Track the last played note
-        lastPlayedTime = Date.now(); // Store the current time
+        lastPlayedTime = elapsedTime; // Store the current time
     });
 
     key.addEventListener('mouseenter', () => {
-        const currentTime = Date.now();
+        if (recordingStartTime == null) {
+            recordingStartTime = Date.now(); 
+        }
+
+        const currentTime = (Date.now() - recordingStartTime) / 1000; 
         if (isMouseDown && lastPlayedNote !== key.dataset.note && (currentTime - lastPlayedTime) >= cooldown) {
-            // Only play the note if enough time has passed since the last note was played
             playNoteWithEffect(key.dataset.note);
+            recordedNotes.push({ note: key.dataset.note, time: currentTime }); 
             lastPlayedNote = key.dataset.note; // Update the last played note
             lastPlayedTime = currentTime; // Update the time the note was played
         }
@@ -28,3 +41,52 @@ document.addEventListener('mouseup', () => {
     isMouseDown = false; // Stop mouse dragging
     lastPlayedNote = null; // Reset the last played note when mouse is released
 });
+
+function sendRecordingToServer() {
+    fetch('http://localhost:5000/save_recording', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ recordedNotes })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Server Response:', data))
+    .catch(error => console.error('Error:', error));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const recordButton = document.getElementById('recordButton');
+
+    recordButton.addEventListener('click', () => {
+        isRecording = !isRecording;
+        recordButton.textContent = isRecording ? 'Stop Recording' : 'Start Recording';
+
+        if (isRecording) {
+            recordedNotes = []; 
+            recordingStartTime = Date.now(); 
+            console.log("Recording started.");
+        } else {
+            sendRecordingToServer(); 
+            console.log("Recording stopped. Notes:", recordedNotes);
+        }
+    });
+
+    playButton.addEventListener('click', () => {
+        if (recordedNotes.length === 0) {
+            console.log("No recording to play.");
+            return;
+        }
+        playRecording();
+    });
+});
+
+function playRecording() {
+    recordedNotes.forEach(noteData => {
+        const delay = noteData.time * 1000; 
+        setTimeout(() => {
+            playNoteWithEffect(noteData.note);
+        }, delay);
+    });
+}
+
