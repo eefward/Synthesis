@@ -20,7 +20,7 @@ def save_recording():
     data = request.json
     recordings.append(data['recordedNotes'])  
     print("received:", data['recordedNotes'])  
-    return jsonify({"message": "Recording saved successfully!"})
+    return jsonify({"message": "recording saved!"})
 
 if __name__ == "__main__":
     app.run(debug=True)
