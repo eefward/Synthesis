@@ -49,32 +49,44 @@ function noteFormat(num) {
 
 // -------------------------------------------------- Valid custom color
 function validCustomColorMsg() {
+    let msg = "Valid";
+
     document.querySelectorAll('.colors').forEach(color => {
         const num = Number(color.value);
 
-        if (isNaN(num)) return "Integers and valid input only";
-        else if (!(0 <= num && num <= 255)) return "Color values can only be 0-255";
+        if (isNaN(num)) {
+            msg = `Integers and valid input only (${color.id})`;
+            return;
+        } else if (!(0 <= num && num <= 255)) {
+            msg = `Color values can only be 0-255 (Location: ${color.id})`
+            return;
+        }
     });
 
     document.querySelectorAll('.transparencies').forEach(transparency => {
         const num = Number(transparency.value);
 
-        if (isNaN(num)) return "Integers and valid input only";
-        else if (!(0 <= num && num <= 1)) return "Transparency values can only be 0-1";
+        if (isNaN(num)) {
+            msg = `Integers and valid input only (${color.id})`;
+            return;
+        } else if (!(0 <= num && num <= 1)) {
+            msg = `Transparency values can only be 0-1 (${color.id})`;
+            return;
+        }
     });
 
-    return "Valid";
+    return msg + "\nWTG = White Top Green, \nBBT = Black Bottom Transparency";
 }
 
 
 function validateAndSaveCustomColor() {
     const css = document.getElementById('slidingBarsCSS');
-    const msg = validCustomColorMsg();
+    let msg = validCustomColorMsg();
     if (msg !== "Valid") {
-        console.log(msg);
         alert(msg);
-        return;
+        return false;
     }
+    console.log(msg);
 
     const rgba = {
         white: {

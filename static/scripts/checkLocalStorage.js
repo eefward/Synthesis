@@ -21,7 +21,7 @@ if (localStorage.getItem('colorStorage') !== null) {
     document.getElementById('BBB').value = rgba.black.bottom.blue;
     document.getElementById('BBT').value = rgba.black.bottom.transparency;
 
-    const msg = validCustomColorMsg();
+    let msg = validCustomColorMsg();
     if (msg !== "Valid") {
         alert(msg);
     } else {

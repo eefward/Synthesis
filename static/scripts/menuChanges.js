@@ -94,6 +94,7 @@ selectedColor.addEventListener('change', () => {
             e.preventDefault();
             
             validateAndSaveCustomColor()
+            console.log("should've called teh function");
             customColorBackground.hidden = true;
         });
     }
