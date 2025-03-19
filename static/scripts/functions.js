@@ -48,6 +48,82 @@ function noteFormat(num) {
 }
 
 // -------------------------------------------------- Valid custom color
-function validCustomColor() {
+function validCustomColorMsg() {
+    document.querySelectorAll('.colors').forEach(color => {
+        const num = Number(color.value);
 
+        if (isNaN(num)) return "Integers and valid input only";
+        else if (!(0 <= num && num <= 255)) return "Color values can only be 0-255";
+    });
+
+    document.querySelectorAll('.transparencies').forEach(transparency => {
+        const num = Number(transparency.value);
+
+        if (isNaN(num)) return "Integers and valid input only";
+        else if (!(0 <= num && num <= 1)) return "Transparency values can only be 0-1";
+    });
+
+    return "Valid";
+}
+
+
+function validateAndSaveCustomColor() {
+    const css = document.getElementById('slidingBarsCSS');
+    const msg = validCustomColorMsg();
+    if (msg !== "Valid") {
+        console.log(msg);
+        alert(msg);
+        return;
+    }
+
+    const rgba = {
+        white: {
+            top: {
+                red: Number(document.getElementById('WTR').value), 
+                green: Number(document.getElementById('WTG').value), 
+                blue: Number(document.getElementById('WTB').value),
+                transparency: Number(document.getElementById('WTT').value)
+            },
+            bottom: {
+                red: Number(document.getElementById('WBR').value), 
+                green: Number(document.getElementById('WBG').value), 
+                blue: Number(document.getElementById('WBB').value), 
+                transparency: Number(document.getElementById('WBT').value)
+            }
+        }, 
+        black : {
+            top: {
+                red: Number(document.getElementById('BTR').value), 
+                green: Number(document.getElementById('BTG').value), 
+                blue: Number(document.getElementById('BTB').value), 
+                transparency: Number(document.getElementById('BTT').value)
+            },
+            bottom: {
+                red: Number(document.getElementById('BBR').value), 
+                green: Number(document.getElementById('BBG').value), 
+                blue: Number(document.getElementById('BBB').value), 
+                transparency: Number(document.getElementById('BBT').value)
+            }
+        }
+    }
+
+    css.innerHTML = `
+        .whiteSlidingBar {
+            background: linear-gradient(
+                135deg, 
+                rgba(${rgba.white.top.red}, ${rgba.white.top.green}, ${rgba.white.top.blue}, ${rgba.white.top.transparency}) 0%,
+                rgba(${rgba.white.bottom.red}, ${rgba.white.bottom.green}, ${rgba.white.bottom.blue}, ${rgba.white.bottom.transparency}) 100%
+            );
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .blackSlidingBar {
+            background: linear-gradient(
+                135deg, 
+                rgba(${rgba.black.top.red}, ${rgba.black.top.green}, ${rgba.black.top.blue}, ${rgba.black.top.transparency}) 0%,
+                rgba(${rgba.black.bottom.red}, ${rgba.black.bottom.green}, ${rgba.black.bottom.blue}, ${rgba.black.bottom.transparency}) 100%
+            );
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+    `;
+    localStorage.setItem('colorStorage', JSON.stringify(rgba));
 }
