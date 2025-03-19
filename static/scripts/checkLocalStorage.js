@@ -2,24 +2,24 @@ if (localStorage.getItem('colorStorage') !== null) {
     const rgba = JSON.parse(localStorage.getItem('colorStorage'));
 
     document.getElementById('WTR').value = rgba.white.top.red;
-    document.getElementById('WTG').value = rgba.white.top.red;
-    document.getElementById('WTB').value = rgba.white.top.red;
-    document.getElementById('WTT').value = rgba.white.top.red;
+    document.getElementById('WTG').value = rgba.white.top.green;
+    document.getElementById('WTB').value = rgba.white.top.blue;
+    document.getElementById('WTT').value = rgba.white.top.transparency;
 
-    document.getElementById('WBR').value = rgba.white.top.red;
-    document.getElementById('WBG').value = rgba.white.top.red;
-    document.getElementById('WBB').value = rgba.white.top.red;
-    document.getElementById('WBT').value = rgba.white.top.red;
+    document.getElementById('WBR').value = rgba.white.bottom.red;
+    document.getElementById('WBG').value = rgba.white.bottom.green;
+    document.getElementById('WBB').value = rgba.white.bottom.blue;
+    document.getElementById('WBT').value = rgba.white.bottom.transparency;
 
-    document.getElementById('BTR').value = rgba.white.top.red;
-    document.getElementById('BTG').value = rgba.white.top.red;
-    document.getElementById('BTB').value = rgba.white.top.red;
-    document.getElementById('BTT').value = rgba.white.top.red;
+    document.getElementById('BTR').value = rgba.black.top.red;
+    document.getElementById('BTG').value = rgba.black.top.green;
+    document.getElementById('BTB').value = rgba.black.top.blue;
+    document.getElementById('BTT').value = rgba.black.top.transparency;
 
-    document.getElementById('BBR').value = rgba.white.top.red;
-    document.getElementById('BBG').value = rgba.white.top.red;
-    document.getElementById('BBB').value = rgba.white.top.red;
-    document.getElementById('BBT').value = rgba.white.top.red;
+    document.getElementById('BBR').value = rgba.black.bottom.red;
+    document.getElementById('BBG').value = rgba.black.bottom.green;
+    document.getElementById('BBB').value = rgba.black.bottom.blue;
+    document.getElementById('BBT').value = rgba.black.bottom.transparency;
 
     document.querySelectorAll('.colors').forEach(color => {
         const num = Number(color.value);

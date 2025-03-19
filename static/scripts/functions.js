@@ -2,12 +2,12 @@
 function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
+    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
+    audio.currentTime = 0; // Start from the beginning
+    audio.play();
+
     // If they want to see the key pressed
     document.getElementById('notePressedInfo').innerText = note;
-    
-    // Play sound
-    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    audio.play();
     
     // Creating the sliding Bars
     const bar = document.createElement('div');
@@ -47,4 +47,7 @@ function noteFormat(num) {
     return notes[index] + octave;
 }
 
-// -------------------------------------------------- other sthings
+// -------------------------------------------------- Valid custom color
+function validCustomColor() {
+
+}
