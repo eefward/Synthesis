@@ -93,9 +93,11 @@ selectedColor.addEventListener('change', () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            validateAndSaveCustomColor()
-            console.log("should've called teh function");
-            customColorBackground.hidden = true;
+            const msg = validCustomColorMsg();
+            if (msg.includes("Valid")) {
+                saveCustomColor();
+                customColorBackground.hidden = true;
+            } else alert(msg);
         });
     }
 });

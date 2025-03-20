@@ -22,7 +22,8 @@ if (localStorage.getItem('colorStorage') !== null) {
     document.getElementById('BBT').value = rgba.black.bottom.transparency;
 
     let msg = validCustomColorMsg();
-    if (msg !== "Valid") {
+    if (!msg.includes("Valid")) {
+        console.log("weird");
         alert(msg);
     } else {
         css.innerHTML = `

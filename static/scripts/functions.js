@@ -79,14 +79,8 @@ function validCustomColorMsg() {
 }
 
 
-function validateAndSaveCustomColor() {
+function saveCustomColor() {
     const css = document.getElementById('slidingBarsCSS');
-    let msg = validCustomColorMsg();
-    if (msg !== "Valid") {
-        alert(msg);
-        return false;
-    }
-    console.log(msg);
 
     const rgba = {
         white: {
