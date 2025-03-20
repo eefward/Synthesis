@@ -4,10 +4,12 @@ let isMouseDown = false; // Track if mouse is pressed
 let lastPlayedNote = null; // Track the last played note to avoid repetition
 let lastPlayedTime = 0; // Store the time the last note was played
 const cooldown = 100; // Cooldown in milliseconds (e.g., 100ms = 0.1s)
-let recordingStartTime = null;
 
+let recordingStartTime = null;
 let isRecording = false;
 let recordedNotes = [];
+
+// ----------------------------------------------------------------- Key Pressing
 
 keys.forEach(key => {
     key.addEventListener('mousedown', () => {
@@ -41,6 +43,8 @@ document.addEventListener('mouseup', () => {
     isMouseDown = false; // Stop mouse dragging
     lastPlayedNote = null; // Reset the last played note when mouse is released
 });
+
+// ----------------------------------------------------------------- Recorder & Playback
 
 function sendRecordingToServer() {
     fetch('http://localhost:5000/save_recording', {
