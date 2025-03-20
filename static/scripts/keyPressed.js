@@ -44,20 +44,7 @@ document.addEventListener('mouseup', () => {
     lastPlayedNote = null; // Reset the last played note when mouse is released
 });
 
-// ----------------------------------------------------------------- Recorder & Playback
-
-function sendRecordingToServer() {
-    fetch('http://localhost:5000/save_recording', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ recordedNotes })
-    })
-    .then(response => response.json())
-    .then(data => console.log('Server Response:', data))
-    .catch(error => console.error('Error:', error));
-}
+// Record Button
 
 document.addEventListener('DOMContentLoaded', () => {
     const recordButton = document.getElementById('recordButton');
@@ -85,12 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function playRecording() {
-    recordedNotes.forEach(noteData => {
-        const delay = noteData.time * 1000; 
-        setTimeout(() => {
-            playNoteWithEffect(noteData.note);
-        }, delay);
-    });
-}
 

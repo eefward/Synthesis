@@ -1,3 +1,8 @@
+/*
+playNoteWithEffect(note): Plays a note (EX: D4)
+
+*/
+
 // -------------------------------------------------- Key animations
 function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
@@ -78,7 +83,6 @@ function validCustomColorMsg() {
     return msg + "\nWTG = White Top Green, \nBBT = Black Bottom Transparency";
 }
 
-
 function saveCustomColor() {
     const css = document.getElementById('slidingBarsCSS');
 
@@ -132,4 +136,28 @@ function saveCustomColor() {
         }
     `;
     localStorage.setItem('colorStorage', JSON.stringify(rgba));
+}
+
+// -------------------------------------------------- Recording & Playback
+
+function sendRecordingToServer() {
+    fetch('http://localhost:5000/save_recording', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ recordedNotes })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Server Response:', data))
+    .catch(error => console.error('Error:', error));
+}
+
+function playRecording() {
+    recordedNotes.forEach(noteData => {
+        const delay = noteData.time * 1000; 
+        setTimeout(() => {
+            playNoteWithEffect(noteData.note);
+        }, delay);
+    });
 }
