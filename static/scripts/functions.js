@@ -1,10 +1,10 @@
 /*
 playNoteWithEffect(note): Plays a note (EX: D4)
-function noteFormat(num): Converts Numerical to MIDI
-function validCustomColorMsg(): Determines of Custom Color is valid
-function saveCustomColor(): Saves the Custom Color across servers
-function sendRecordingToServer(): Sends recording to Python server
-function playRecording(): Plays 'recordedNotes'
+noteFormat(num): Converts Numerical to MIDI
+validCustomColorMsg(): Determines of Custom Color is valid
+saveCustomColor(): Saves the Custom Color across servers
+sendRecordingToServer(): Sends recording to Python server
+playRecording(): Plays 'recordedNotes'
 */
 
 // -------------------------------------------------- Key animations
