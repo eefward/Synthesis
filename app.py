@@ -8,11 +8,15 @@ CORS(app)
 def home():
     return render_template("index.html")
 
-@app.route("/test.html")
+@app.route("/test")
 def test():
     return render_template("test.html")
 
 recordings = []
+
+@app.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
 
 @app.route('/save_recording', methods=['POST'])
 def save_recording():

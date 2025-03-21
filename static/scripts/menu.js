@@ -1,5 +1,4 @@
 // -------------------------------------------------- Toggle key note
-
 function keyToggle(visible, debounce) {
     const infoBox = document.getElementById('notePressedInfo');
     
@@ -25,7 +24,6 @@ keyToggleButton.addEventListener('click', () => {
 });
 
 // -------------------------------------------------- Key animation color changes
-
 const css = document.getElementById('slidingBarsCSS');
 const selectedColor = document.getElementById('selectColor');
 
