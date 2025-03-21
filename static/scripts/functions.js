@@ -11,13 +11,13 @@ playRecording(): Plays 'recordedNotes'
 function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
-    // options or changing things i forgot the word
+    // -- [[options or changing things i forgot the word]] --
     const ypos = '190px';
     const distanceTravels = 'translateY(-100vh)';
     const disappear = 600;
 
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    audio.currentTime = 0; // Start from the beginning
+    audio.currentTime = 0; 
     audio.play();
 
     // If they want to see the key pressed
