@@ -37,7 +37,7 @@ function playNoteWithEffect(note) {
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
     
     requestAnimationFrame(() => {
-        bar.style.transform = 'translateY(-100vh)';
+        bar.style.transform = 'translateY(-100vh)'; // distance travels
         bar.style.opacity = '0';
     });
     
