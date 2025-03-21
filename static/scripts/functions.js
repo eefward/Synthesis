@@ -11,6 +11,11 @@ playRecording(): Plays 'recordedNotes'
 function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
+    // options or changing things i forgot the word
+    const ypos = '190px';
+    const distanceTravels = 'translateY(-100vh)';
+    const disappear = 600;
+
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
     audio.currentTime = 0; // Start from the beginning
     audio.play();
@@ -26,10 +31,12 @@ function playNoteWithEffect(note) {
     const keyRect = element.getBoundingClientRect();
     if (element.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar')
+        bar.style.bottom = ypos; 
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (element.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
+        bar.style.bottom = ypos; 
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
     }
@@ -37,13 +44,13 @@ function playNoteWithEffect(note) {
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
     
     requestAnimationFrame(() => {
-        bar.style.transform = 'translateY(-100vh)'; // distance travels
+        bar.style.transform = distanceTravels;
         bar.style.opacity = '0';
     });
     
     setTimeout(() => {
         bar.remove();
-    }, 600);
+    }, disappear);
 }
 
 // -------------------------------------------------- Convert numerical to midi
