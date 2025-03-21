@@ -1,3 +1,12 @@
+/*
+playNoteWithEffect(note): Plays a note (EX: D4)
+function noteFormat(num): Converts Numerical to MIDI
+function validCustomColorMsg(): Determines of Custom Color is valid
+function saveCustomColor(): Saves the Custom Color across servers
+function sendRecordingToServer(): Sends recording to Python server
+function playRecording(): Plays 'recordedNotes'
+*/
+
 // -------------------------------------------------- Key animations
 function playNoteWithEffect(note) {
     const element = document.querySelector(`[data-note="${note}"]`);
@@ -117,7 +126,7 @@ function assignCustomColor(rgba) {
             transition: transform 1s ease-out, opacity 1s ease-out;
         }
     `;
-
+  
     document.getElementById('customColor').selected = true;
 }
 
@@ -156,4 +165,28 @@ function saveCustomColor() {
 
     assignCustomColor(rgba);
     localStorage.setItem('colorStorage', JSON.stringify(rgba));
+}
+
+// -------------------------------------------------- Recording & Playback
+
+function sendRecordingToServer() {
+    fetch('http://localhost:5000/save_recording', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ recordedNotes })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Server Response:', data))
+    .catch(error => console.error('Error:', error));
+}
+
+function playRecording() {
+    recordedNotes.forEach(noteData => {
+        const delay = noteData.time * 1000; 
+        setTimeout(() => {
+            playNoteWithEffect(noteData.note);
+        }, delay);
+    });
 }
