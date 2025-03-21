@@ -79,10 +79,7 @@ selectedColor.addEventListener('change', () => {
         `;
     } else if (color === "Custom") {
         const customColorBackground = document.getElementById("background");
-        const customColor = document.getElementById('customColor');
-        
         customColorBackground.hidden = false;
-        customColor.selected = true;
 
         customColorBackground.addEventListener('click', (event) => {
             if (event.target === background) 
