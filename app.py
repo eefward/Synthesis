@@ -1,8 +1,10 @@
 from flask import Flask, redirect, render_template, request, jsonify, session
 from flask_cors import CORS 
 
+import functions
+
 app = Flask(__name__, template_folder='templates', static_folder='static')
-CORS(app) 
+CORS(app)
 
 @app.route("/")
 def home():
