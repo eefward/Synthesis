@@ -25,7 +25,7 @@ body {
 }
 
 .white-key {
-  width: 28px;
+  width: 33.8px;
   height: 150px;
   background: white;
   border: 1px solid #ccc;
@@ -37,7 +37,7 @@ body {
 }
 
 .black-key {
-  width: 20px;
+  width: 23px;
   height: 100px;
   background: black;
   border-radius: 0 0 3px 3px;
