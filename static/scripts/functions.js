@@ -190,8 +190,10 @@ function sendRecordingToServer() {
 }
 
 function playRecording() {
+    const delaybeforePlaying = 1000;
+
     recordedNotes.forEach(noteData => {
-        const delay = noteData.time * 1000; 
+        const delay = noteData.time * delaybeforePlaying; 
         setTimeout(() => {
             playNoteWithEffect(noteData.note);
         }, delay);
