@@ -53,6 +53,14 @@ function playNoteWithEffect(note) {
     }, disappear);
 }
 
+function keyClickEffect(key) {
+    const darkenAmt = "brightness(70%)";
+    key.style.filter = darkenAmt; 
+    setTimeout(() => {
+        key.style.filter = "brightness(100%)"; 
+    }, 150);
+}
+
 // -------------------------------------------------- Convert numerical to midi
 function noteFormat(num) {
     // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)

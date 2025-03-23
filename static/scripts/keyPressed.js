@@ -20,8 +20,10 @@ keys.forEach(key => {
         const elapsedTime = (Date.now() - recordingStartTime) / 1000; 
         playNoteWithEffect(key.dataset.note);
         recordedNotes.push({ note: key.dataset.note, time: elapsedTime }); 
-        lastPlayedNote = key.dataset.note; // Track the last played note
-        lastPlayedTime = elapsedTime; // Store the current time
+        lastPlayedNote = key.dataset.note; 
+        lastPlayedTime = elapsedTime; 
+
+        keyClickEffect(key); // Darken the key on click
     });
 
     key.addEventListener('mouseenter', () => {
@@ -33,8 +35,10 @@ keys.forEach(key => {
         if (isMouseDown && lastPlayedNote !== key.dataset.note && (currentTime - lastPlayedTime) >= cooldown) {
             playNoteWithEffect(key.dataset.note);
             recordedNotes.push({ note: key.dataset.note, time: currentTime }); 
-            lastPlayedNote = key.dataset.note; // Update the last played note
-            lastPlayedTime = currentTime; // Update the time the note was played
+            lastPlayedNote = key.dataset.note; 
+            lastPlayedTime = currentTime; 
+
+            keyClickEffect(key); // Darken the key when played via hover
         }
     });
 });
