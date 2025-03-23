@@ -185,7 +185,7 @@ function saveCustomColor() {
 // -------------------------------------------------- Recording & Playback
 
 function sendRecordingToServer() {
-    fetch('http://localhost:5000/save_recording', {
+    fetch('http://localhost:5000/saveRecording', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

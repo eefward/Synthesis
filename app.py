@@ -20,8 +20,8 @@ recordings = []
 def gallery():
     return render_template("gallery.html")
 
-@app.route('/save_recording', methods=['POST'])
-def save_recording():
+@app.route('/saveRecording', methods=['POST'])
+def saveRecording():
     data = request.json
     recordings.append(data['recordedNotes'])  
     print("received:", data['recordedNotes'])  
