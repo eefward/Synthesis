@@ -198,12 +198,27 @@ function sendRecordingToServer() {
 }
 
 function playRecording() {
-    const delaybeforePlaying = 1000;
+    const delayBeforePlaying = 1000;
+    const playButton = document.getElementById('playButton');
+
+    playButton.textContent = 'Playing';
+
+    if (recordedNotes.length === 0) {
+        playButton.textContent = 'Play Recording';
+        return;
+    }
+
+    let lastNoteTime = recordedNotes[recordedNotes.length - 1].time; 
+    let totalDuration = lastNoteTime * delayBeforePlaying; 
 
     recordedNotes.forEach(noteData => {
-        const delay = noteData.time * delaybeforePlaying; 
+        const delay = noteData.time * delayBeforePlaying;
         setTimeout(() => {
             playNoteWithEffect(noteData.note);
         }, delay);
     });
+
+    setTimeout(() => {
+        playButton.textContent = 'Play Recording';
+    }, totalDuration);
 }
