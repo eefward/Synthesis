@@ -69,6 +69,34 @@ body {
   color: #ddd;
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 50;
+  width: 25%;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.navbar a {
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.navbar button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.navbar button:hover {
+  background-color: #777;
+}
+
 #notePressedInfo {
   position: relative;
   text-align: center;
