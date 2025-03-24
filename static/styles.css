@@ -138,7 +138,7 @@ body {
 .slide-bar {
   position: fixed;
   bottom: 10vh;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .dropdown-item:hover {
@@ -201,4 +201,37 @@ body {
 
 #playButton:hover {
   background-color: rgb(0, 119, 20);
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(255, 200, 0, 0.8); }
+  50% { box-shadow: 0 0 20px rgba(255, 85, 0, 1); }
+  100% { box-shadow: 0 0 5px rgba(255, 200, 0, 0.8); }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: .8; }
+  100% { opacity: 1; }
+}
+
+@keyframes flowColors {
+  0% { background: linear-gradient(135deg, red, orange); }
+  25% { background: linear-gradient(135deg, orange, yellow); }
+  50% { background: linear-gradient(135deg, yellow, green); }
+  75% { background: linear-gradient(135deg, green, blue); }
+  100% { background: linear-gradient(135deg, blue, red); }
+}
+
+@keyframes hueRotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes neonFlow {
+  0% { box-shadow: 0 0 10px red; }
+  25% { box-shadow: 0 0 20px orange; }
+  50% { box-shadow: 0 0 30px yellow; }
+  75% { box-shadow: 0 0 20px orange; }
+  100% { box-shadow: 0 0 10px red; }
 }
