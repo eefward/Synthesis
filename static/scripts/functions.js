@@ -8,13 +8,13 @@ playRecording(): Plays 'recordedNotes'
 */
 
 // -------------------------------------------------- Key animations
-function playNoteWithEffect(note) {
+function playNoteWithEffect(note, reversed=false) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
     // -- [[options or changing things i forgot the word]] --
     const ypos = '190px';
     const distanceTravels = 'translateY(-100vh)';
-    const disappear = 600;
+    const ttl = 600; // in milliseconds
 
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
     audio.currentTime = 0; 
@@ -29,9 +29,9 @@ function playNoteWithEffect(note) {
     bar.classList.add('slide-bar');
 
     const keyRect = element.getBoundingClientRect();
+    
     if (element.classList.contains('white-key')) {
-        bar.classList.add('whiteSlidingBar')
-        bar.style.bottom = ypos; 
+        bar.classList.add('whiteSlidingBar');
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (element.classList.contains('black-key')) {
@@ -50,7 +50,7 @@ function playNoteWithEffect(note) {
     
     setTimeout(() => {
         bar.remove();
-    }, disappear);
+    }, 1000);
 }
 
 function playNoteWithReversedEffect(note, fallDuration) {
