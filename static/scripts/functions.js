@@ -1,5 +1,5 @@
 /*
-playNoteWithEffect(note): Plays a note (EX: D4)
+playNoteWithEffect(note, reversed): Plays a note (EX: D4)
 noteFormat(num): Converts Numerical to MIDI
 validCustomColorMsg(): Determines of Custom Color is valid
 saveCustomColor(): Saves the Custom Color across servers
