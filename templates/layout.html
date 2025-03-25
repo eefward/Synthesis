@@ -23,7 +23,6 @@
     </style>
 </head>
 <body>
-    <div class="piano" id="piano"></div>
     <div id="slidingBars"></div>
     
     <div class="navbar">
@@ -35,7 +34,7 @@
     {% block main %}{% endblock %}
 
     <script src="/static/scripts/functions.js"></script>
-    <script src="/static/scripts/createPiano.js"></script>
+    {% block scripts %}{% endblock %}
     <script src="/static/scripts/keyPressed.js"></script>
     <script src="/static/scripts/menu.js"></script>
     <script src="/static/scripts/checkLocalStorage.js"></script>
