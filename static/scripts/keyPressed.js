@@ -7,6 +7,8 @@ const cooldown = 100; // Cooldown in milliseconds (e.g., 100ms = 0.1s)
 let recordingStartTime = null;
 let isRecording = false;
 let recordedNotes = [];
+let ttlVal = document.getElementById('ttl').value;
+const ttl = IsNaN(Number(ttlVal)) ? 1000 : Number(ttlVal);
 
 // ----------------------------------------------------------------- Key Pressing
 

@@ -200,11 +200,9 @@ function saveCustomColor() {
 // -------------------------------------------------- Recording & Playback
 
 function sendRecordingToServer() {
-    fetch('http://localhost:5000/saveRecording', {
+    fetch('/saveRecording', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ recordedNotes })
     })
     .then(response => response.json())
