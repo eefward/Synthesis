@@ -8,8 +8,8 @@ playRecording(): Plays 'recordedNotes'
 */
 
 // -------------------------------------------------- Key animations
-function playNoteWithEffect(note, ttl, reversed=false) {
-    const element = document.querySelector(`[data-note="${note}"]`);
+function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
+    const note = key.dataset.note;
 
     // If they want to see the key pressed
     document.getElementById('notePressedInfo').innerText = note;
@@ -23,14 +23,14 @@ function playNoteWithEffect(note, ttl, reversed=false) {
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
 
-    const keyRect = element.getBoundingClientRect();
-    if (element.classList.contains('white-key')) {
+    const keyRect = key.getBoundingClientRect();
+    if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
 
         if (reversed) bar.style.top = '-40vh'
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
-    } else if (element.classList.contains('black-key')) {
+    } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
 
         if (reversed) bar.style.top = '-35vh';
@@ -55,7 +55,7 @@ function playNoteWithEffect(note, ttl, reversed=false) {
             audio.currentTime = 0;
             audio.play();
             bar.style.opacity = '0';
-            keyClickEffect(element)
+            keyClickEffect(key)
         }, ttl);
 
         setTimeout(() => {
@@ -66,14 +66,15 @@ function playNoteWithEffect(note, ttl, reversed=false) {
             bar.remove();
         }, 1000);
     }
-}
 
-function keyClickEffect(key) {
-    const darkenAmt = "brightness(70%)";
-    key.style.filter = darkenAmt; 
+    key.style.filter = "brightness(70%)";
     setTimeout(() => {
         key.style.filter = "brightness(100%)"; 
     }, 150);
+}
+
+function keyClickEffect(key) {
+    
 }
 
 // -------------------------------------------------- Convert numerical to midi
