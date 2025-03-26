@@ -16,13 +16,13 @@
             <option id="customColor" value="customColor" disabled>Your Custom Color</option>
         </select>
 
-        <div class="d-flex">
-            <input id="ttl" class="form-control" type="number" placeholder="1000" min="0">
-            <button style="margin-left:2vh"class="btn btn-primary">test</button>
-        </div>
-
-        <button id="recordButton">Start Recording</button>
+        
+        <input id="ttl" class="form-control" type="number" placeholder="Time to Live (ms)" min="0">
+        <input id="speed" class="form-control" type="number" placeholder="Speed" min="0">
+        
+        <button id="recordButton"><i class="fa-solid fa-play"></i></button>
         <button id="playButton">Play Recording</button>
+        <button id="saveRecording">Save Recording</button>
     </div>
 
     <div id="background" hidden>

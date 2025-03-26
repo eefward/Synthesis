@@ -7,9 +7,14 @@ sendRecordingToServer(): Sends recording to Python server
 playRecording(): Plays 'recordedNotes'
 */
 
-// -------------------------------------------------- Key animations
-function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
+// -------------------------------------------------- Key animations & Recording
+let recording = [];
+function createNoteAnimation(key, reversed) {
+
+}
+function playNote(key, ttl, isRecording=false, reversed=false) {
     const note = key.dataset.note;
+    if (isRecording) recording.push({note: note, time: Date.now(), duration: 5});
 
     // If they want to see the key pressed
     document.getElementById('notePressedInfo').innerText = note;
@@ -73,17 +78,13 @@ function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
     }, 150);
 }
 
-function keyClickEffect(key) {
-    
-}
-
 // -------------------------------------------------- Convert numerical to midi
+// 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
+const notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
 function noteFormat(num) {
-    // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
-    const notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
-
     const index = (num - 21) % 12;
     const octave = Math.floor((num - 12) / 12);
+
     return notes[index] + octave;
 }
 
@@ -200,6 +201,14 @@ function saveCustomColor() {
 
 // -------------------------------------------------- Recording & Playback
 
+function normalizeRecording() {
+    
+}
+
+function trimBeginningAndEnding(recording) {
+    recording[0].time 
+}
+
 function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
@@ -211,7 +220,7 @@ function sendRecordingToServer() {
     .catch(error => console.error('Error:', error));
 }
 
-function playRecording() {
+function playRecording(recording) {
     const delayBeforePlaying = 1000;
     const playButton = document.getElementById('playButton');
 
