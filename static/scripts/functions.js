@@ -8,20 +8,15 @@ playRecording(): Plays 'recordedNotes'
 */
 
 // -------------------------------------------------- Key animations
-function playNoteWithEffect(note, reversed=false) {
+function playNoteWithEffect(note, ttl, reversed=false) {
     const element = document.querySelector(`[data-note="${note}"]`);
 
-    // -- [[options or changing things i forgot the word]] --
-    const ypos = '190px';
-    const distanceTravels = 'translateY(-100vh)';
-    const ttl = 600; // in milliseconds
+    // If they want to see the key pressed
+    document.getElementById('notePressedInfo').innerText = note;
 
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
     audio.currentTime = 0; 
     audio.play();
-
-    // If they want to see the key pressed
-    document.getElementById('notePressedInfo').innerText = note;
     
     // Creating the sliding Bars
     const bar = document.createElement('div');
@@ -29,76 +24,49 @@ function playNoteWithEffect(note, reversed=false) {
     bar.classList.add('slide-bar');
 
     const keyRect = element.getBoundingClientRect();
-    
     if (element.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
+
+        if (reversed) bar.style.top = '-40vh'
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (element.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
-        bar.style.bottom = ypos; 
+
+        if (reversed) bar.style.top = '-35vh';
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
     
+    if (reversed) bar.style.transition = `transform 1000ms linear`;
     requestAnimationFrame(() => {
-        bar.style.transform = distanceTravels;
-        bar.style.opacity = '0';
+        if (reversed) bar.style.transform = 'translateY(100vh)';
+        else {
+            bar.style.transform = 'translateY(-100vh)'
+            bar.style.opacity = '0';
+        }
     });
     
-    setTimeout(() => {
-        bar.remove();
-    }, 1000);
-}
+    if (reversed) {
+        setTimeout(() => {
+            const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
+            audio.currentTime = 0;
+            audio.play();
+            bar.style.opacity = '0';
+            keyClickEffect(element)
+        }, ttl);
 
-function playNoteWithReversedEffect(note, fallDuration) {
-    const element = document.querySelector(`[data-note="${note}"]`);
-
-    // properties
-    const whitestartPos = '-40vh'; 
-    const blackstartPos = '-35vh'
-    const fadeOutTime = 600;
-
-    const bar = document.createElement('div');
-    document.getElementById('slidingBars').appendChild(bar);
-    bar.classList.add('slide-bar');
-
-    const keyRect = element.getBoundingClientRect();
-
-    if (element.classList.contains('white-key')) {
-        bar.classList.add('whiteSlidingBar');
-        bar.style.top = whitestartPos;
-        bar.style.width = `${keyRect.width * 0.9}px`; 
-        bar.style.height = `${keyRect.height * 1.25}px`; 
-    } else if (element.classList.contains('black-key')) {
-        bar.classList.add('blackSlidingBar');
-        bar.style.top = blackstartPos;
-        bar.style.width = `${keyRect.width}px`; 
-        bar.style.height = `${keyRect.height * 1.25}px`;
+        setTimeout(() => {
+            bar.remove();
+        }, ttl + 600);
+    } else {
+        setTimeout(() => {
+            bar.remove();
+        }, 1000);
     }
-
-    bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
-
-    bar.style.transition = `transform ${fallDuration}ms linear`;
-    requestAnimationFrame(() => {
-        bar.style.transform = 'translateY(100vh)';
-    });
-
-    setTimeout(() => {
-        const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-        audio.currentTime = 0;
-        audio.play();
-        bar.style.opacity = '0';
-        keyClickEffect(element)
-    }, fallDuration);
-
-    setTimeout(() => {
-        bar.remove();
-    }, fallDuration + fadeOutTime);
 }
-
 
 function keyClickEffect(key) {
     const darkenAmt = "brightness(70%)";
@@ -232,11 +200,9 @@ function saveCustomColor() {
 // -------------------------------------------------- Recording & Playback
 
 function sendRecordingToServer() {
-    fetch('http://localhost:5000/saveRecording', {
+    fetch('/saveRecording', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ recordedNotes })
     })
     .then(response => response.json())
@@ -261,7 +227,7 @@ function playRecording() {
         let delay = noteData.time * delayBeforePlaying; 
 
         setTimeout(() => {
-            playNoteWithReversedEffect(noteData.note, delayBeforePlaying);
+            playNoteWithEffect(noteData.note, delayBeforePlaying, true);
         }, delay);
     });
 

@@ -1,4 +1,8 @@
-const piano = document.getElementById('piano');
+const piano = document.createElement('div');
+piano.className = 'piano';
+piano.id = 'piano';
+document.body.prepend(piano);
+
 const totalKeys = 88;
 
 let previousKey = null;
