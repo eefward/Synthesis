@@ -225,8 +225,6 @@ function sendRecordingToServer() {
     .catch(error => console.error('Error:', error));
 }
 
-
-
 function playRecording() {
     const playButton = document.getElementById('playButton');
 

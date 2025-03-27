@@ -2,6 +2,8 @@ const recordBtn = document.getElementById('recordButton');
 const playBtn = document.getElementById('playButton');
 const saveBtn = document.getElementById('saveButton');
 
+let isRecording = false;
+
 recordBtn.addEventListener('click', () => {
     isRecording = !isRecording;
 
