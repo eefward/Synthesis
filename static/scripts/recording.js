@@ -36,5 +36,16 @@ playBtn.addEventListener('click', () => {
 });
 
 saveBtn.addEventListener('click', () => {
-    sendRecordingToServer();
+    saveBtn.textContent = "Saving...";
+    if (recording.length == 0) saveBtn.textContent = "No recording to save";
+    else {
+        try {
+            sendRecordingToServer();
+        } catch (error) {
+            saveBtn.textContent = "An error occured while saving, guestythebesty is selling";
+        }   
+    }
+    setTimeout(() => {
+        saveBtn.textContent = "Save Recording";
+    }, 2000);
 });
