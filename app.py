@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, jsonify, session
 from flask_cors import CORS 
+import sqlite3
 
 import functions
 
@@ -23,9 +24,19 @@ def gallery():
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
     data = request.json
-    recordings.append(data['recordedNotes'])  
-    print("received:", data['recordedNotes'])  
-    return jsonify({"message": "recording saved!"})
+    recorded_notes = data.get('recordedNotes')
+
+    if not recorded_notes:
+        return jsonify({"error": "No recorded notes provided"}), 400
+
+    conn = sqlite3.connect("recordings.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (recorded_notes,))
+    conn.commit()
+    conn.close()
+
+    print("Received:", recorded_notes)
+    return jsonify({"message": "Recording saved!"})
 
 if __name__ == "__main__":
     app.run(debug=True)

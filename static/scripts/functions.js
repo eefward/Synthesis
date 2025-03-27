@@ -12,7 +12,14 @@ let recording = [];
 function createNoteAnimation(key, reversed) {
 
 }
+
 function playNote(key, ttl, isRecording=false, reversed=false) {
+    // PROPERTIES
+    const whiteDistBottom = '26vh'; // distance that the white key starts relative to the bottom on the screen
+    const blackDistBottom = '26vh';
+    const revWhiteDist = '45vh';
+    const revBlackDist = '45vh';
+
     const note = key.dataset.note;
     if (isRecording) recording.push({note: note, time: Date.now(), duration: 5});
 
@@ -31,14 +38,16 @@ function playNote(key, ttl, isRecording=false, reversed=false) {
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
+        bar.style.bottom = whiteDistBottom;
 
-        if (reversed) bar.style.top = '-40vh'
+        if (reversed) bar.style.top = revWhiteDist
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
+        bar.style.bottom = blackDistBottom;
 
-        if (reversed) bar.style.top = '-35vh';
+        if (reversed) bar.style.top = revBlackDist;
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
     }
