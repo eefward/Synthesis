@@ -1,12 +1,3 @@
-/*
-playNoteWithEffect(note): Plays a note (EX: D4)
-noteFormat(num): Converts Numerical to MIDI
-validCustomColorMsg(): Determines of Custom Color is valid
-saveCustomColor(): Saves the Custom Color across servers
-sendRecordingToServer(): Sends recording to Python server
-playRecording(): Plays 'recordedNotes'
-*/
-
 // -------------------------------------------------- Key animations & Recording
 let recording = []; // why is this even here bro
 function createNoteAnimation(key, reversed) {
@@ -212,7 +203,6 @@ function saveCustomColor() {
 function trimBeginningAndEnding(recording) {
     recording[0].time 
 }
-
 
 function sendRecordingToServer() {
     fetch('/saveRecording', {
