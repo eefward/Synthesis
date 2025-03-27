@@ -26,7 +26,7 @@ def saveRecording():
     data = request.json
     recorded_notes = data.get('recording')
 
-    if not recorded_notes:
+    if not recorded_notes or len(recorded_notes) == 0:
         return jsonify({"error": "No recorded notes provided"}), 400
 
     conn = sqlite3.connect("recordings.db")

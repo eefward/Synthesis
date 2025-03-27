@@ -213,7 +213,7 @@ function trimBeginningAndEnding(recording) {
     recording[0].time 
 }
 
-/*
+
 function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
@@ -225,7 +225,7 @@ function sendRecordingToServer() {
     .catch(error => console.error('Error:', error));
 }
 
-*/
+
 
 function playRecording() {
     const playButton = document.getElementById('playButton');
