@@ -24,7 +24,7 @@ def gallery():
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
     data = request.json
-    recorded_notes = data.get('recordedNotes')
+    recorded_notes = data.get('recording')
 
     if not recorded_notes:
         return jsonify({"error": "No recorded notes provided"}), 400
