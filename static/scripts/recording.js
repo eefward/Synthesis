@@ -9,18 +9,27 @@ recordBtn.addEventListener('click', () => {
         recordBtn.className = 'btn btn-danger';
         recordBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
 
-        recording = [{note: "N/A", time: Date.now(), duration: "N/A"}];
+        startTime = Date.now();
+        recording = [];
+
+        recording.push({ note: "N/A", time: 0, duration: "N/A" });
+
     } else {
-        recording.push({note: "N/A", time: Date.now(), duration: "N/A"});
+        let elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
+        let lastNoteTime = recording[recording.length - 1].time;
+        let duration = (elapsedTime - lastNoteTime).toFixed(2);
+
+        recording.push({ note: "N/A", time: elapsedTime.toFixed(2), duration: duration });
         console.log(recording);
 
         recordBtn.className = 'btn btn-success';
         recordBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-    }    
+    }
 });
 
+
 playBtn.addEventListener('click', () => {
-    if (recording.length <= 2) {
+    if (recording.length <= 1) {
         console.log("Record something!");
         return;
     } else playRecording();
@@ -29,5 +38,3 @@ playBtn.addEventListener('click', () => {
 saveBtn.addEventListener('click', () => {
     sendRecordingToServer();
 });
-
-
