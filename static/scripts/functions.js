@@ -200,11 +200,6 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-
-function normalizeRecording() {
-    
-}
-
 function trimBeginningAndEnding(recording) {
     recording[0].time 
 }
@@ -213,24 +208,24 @@ function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ recordedNotes })
+        body: JSON.stringify({ recording })
     })
     .then(response => response.json())
     .then(data => console.log('Server Response:', data))
     .catch(error => console.error('Error:', error));
 }
 
-function playRecording(recording) {
-    const delayBeforePlaying = 1000;
+function playRecording() {
     const playButton = document.getElementById('playButton');
 
-    playButton.textContent = 'Playing';
+    playButton.innerHTML = `<div class="circle"></div>`
 
-    if (recordedNotes.length === 0) {
+    if (recording.length === 2) {
         playButton.textContent = 'Play Recording';
         return;
     }
 
+    /*
     let lastNoteTime = recordedNotes[recordedNotes.length - 1].time; 
     
     recordedNotes.forEach(noteData => {
@@ -245,6 +240,7 @@ function playRecording(recording) {
     setTimeout(() => {
         playButton.textContent = 'Play Recording';
     }, totalDuration);
+    */
 }
 
 

@@ -1,32 +1,31 @@
 const recordBtn = document.getElementById('recordButton');
 const playBtn = document.getElementById('playButton');
-let startTime = 0;
+const saveBtn = document.getElementById('saveButton');
 
 recordBtn.addEventListener('click', () => {
     isRecording = !isRecording;
 
     if (isRecording) {
+        recordBtn.className = 'btn btn-danger';
         recordBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
 
-        recording = [];
-        startTime = Date.now();
-        console.log(startTime);
+        recording = [{note: "N/A", time: Date.now(), duration: "N/A"}];
     } else {
-        console.log(Date.now() - startTime);
+        recording.push({note: "N/A", time: Date.now(), duration: "N/A"});
         console.log(recording);
-        normalizeRecording();
-        recordBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
 
+        recordBtn.className = 'btn btn-success';
+        recordBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
     }    
 });
 
 playBtn.addEventListener('click', () => {
-    if (recording.length === 0) {
+    if (recording.length <= 2) {
         console.log("Record something!");
         return;
-    }
-    
-    trimBeginningAndEnding(recording);
+    } else playRecording();
+});
 
-    playRecording(recording);
+saveBtn.addEventListener('click', () => {
+    sendRecordingToServer();
 });
