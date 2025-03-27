@@ -17,5 +17,7 @@ keys.forEach(key => {
         const elapsedTime = (Date.now() - recordingStartTime) / 1000; 
         recordedNotes.push({ note: key.dataset.note, time: elapsedTime }); 
         playNote(key, ttl, isRecording);
+
+        console.log(recordedNotes);
     });
 });

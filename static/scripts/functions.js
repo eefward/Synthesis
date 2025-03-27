@@ -8,7 +8,7 @@ playRecording(): Plays 'recordedNotes'
 */
 
 // -------------------------------------------------- Key animations & Recording
-let recording = [];
+let recording = []; // why is this even here bro
 function createNoteAnimation(key, reversed) {
 
 }
