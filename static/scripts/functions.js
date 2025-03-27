@@ -18,8 +18,15 @@ function playNote(key, ttl, isRecording=false, reversed=false) {
     document.getElementById('notePressedInfo').innerText = note;
 
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    audio.currentTime = 0; 
+    audio.currentTime = 0;
     audio.play();
+    
+    /* experimental duration tests
+    setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }, 2000);
+    */
     
     // Creating the sliding Bars
     const bar = document.createElement('div');
