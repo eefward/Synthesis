@@ -207,10 +207,6 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-function trimBeginningAndEnding(recording) {
-    recording[0].time 
-}
-
 function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
