@@ -15,6 +15,7 @@ recordBtn.addEventListener('click', () => {
         recording = [{ note: "N/A", time: Date.now(), duration: "N/A" }];
     } else {
         recording.push({ note: "N/A", time: Date.now() - recording[0].time, duration: "N/A"});
+        recording[0].time = 0;
         console.log(recording);
 
         recordBtn.className = 'btn btn-success';

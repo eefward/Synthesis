@@ -1,9 +1,11 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
+    
+
     const whiteDistBottom = '26vh'; // distance that the white key starts relative to the bottom on the screen
     const blackDistBottom = '26vh';
-    const revWhiteDist = '45vh';
-    const revBlackDist = '45vh';
+    const revWhiteDist = '-40vh';
+    const revBlackDist = '-40vh';
 
     // Create bar
     const bar = document.createElement('div');
@@ -37,24 +39,10 @@ function createNoteAnimation(key, reversed=false) {
             bar.style.opacity = '0';
         }
     });
-    
-    if (reversed) {
-        setTimeout(() => {
-            const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-            audio.currentTime = 0;
-            audio.play();
-            bar.style.opacity = '0';
-            keyClickEffect(key)
-        }, ttl);
 
-        setTimeout(() => {
-            bar.remove();
-        }, ttl + 600);
-    } else {
-        setTimeout(() => {
-            bar.remove();
-        }, 1000);
-    }
+    setTimeout(() => {
+        bar.remove();
+    }, ttl);
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
@@ -63,7 +51,6 @@ function createNoteAnimation(key, reversed=false) {
 }
 
 function playNote(note, duration, wait=false) {
-    // if (isRecording) recording.push({note: note, time: Date.now() - recording[0].time, duration: 5});
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
     if (wait) setTimeout(() => playNote(note, duration), 1000);
     else {
@@ -203,35 +190,24 @@ function sendRecordingToServer() {
     })
     .then(response => response.json())
     .then(data => console.log('Server Response:', data))
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.log('Error:' + error));
 }
 
-function playRecording(recording) {
-    if (recording.length === 2) return;
+async function playRecording(recording) {
+    if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
     playButton.innerHTML = `<div class="circle"></div>`
 
     for (let i = 1; i < recording.length - 1; i++) {
+        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
+        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
         playNote(recording[i].note, 5000, true);
+        createNoteAnimation(key, true);
     }
 
-    /*
-    let lastNoteTime = recordedNotes[recordedNotes.length - 1].time; 
-    
-    recordedNotes.forEach(noteData => {
-        let delay = noteData.time * delayBeforePlaying; 
-
-        setTimeout(() => {
-            playNoteWithEffect(noteData.note, delayBeforePlaying, true);
-        }, delay);
-    });
-
-    let totalDuration = lastNoteTime * delayBeforePlaying;
-    setTimeout(() => {
-        playButton.textContent = 'Play Recording';
-    }, totalDuration);
-    */
+    console.log("finished");
+    playButton.innerHTML = `Play Recording`;
 }
 
 

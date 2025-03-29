@@ -4,6 +4,8 @@ import sqlite3
 
 import functions
 
+functions.temp_create_db()
+
 app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
 
@@ -27,11 +29,12 @@ def saveRecording():
     recorded_notes = data.get('recording')
 
     if not recorded_notes or len(recorded_notes) == 0:
+        print("error")
         return jsonify({"error": "No recorded notes provided"}), 400
 
     conn = sqlite3.connect("recordings.db")
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (recorded_notes,))
+    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (str(recorded_notes),))
     conn.commit()
     conn.close()
 
