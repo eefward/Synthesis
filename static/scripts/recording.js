@@ -2,6 +2,7 @@ const recordBtn = document.getElementById('recordButton');
 const playBtn = document.getElementById('playButton');
 const saveBtn = document.getElementById('saveButton');
 
+let recording = [];
 let isRecording = false;
 
 recordBtn.addEventListener('click', () => {
@@ -11,17 +12,9 @@ recordBtn.addEventListener('click', () => {
         recordBtn.className = 'btn btn-danger';
         recordBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
 
-        startTime = Date.now();
-        recording = [];
-
-        recording.push({ note: "N/A", time: 0, duration: "N/A" });
-
+        recording = [{ note: "N/A", time: Date.now(), duration: "N/A" }];
     } else {
-        let elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
-        let lastNoteTime = recording[recording.length - 1].time;
-        let duration = (elapsedTime - lastNoteTime).toFixed(2);
-
-        recording.push({ note: "N/A", time: elapsedTime.toFixed(2), duration: duration });
+        recording.push({ note: "N/A", time: Date.now() - recording[0].time, duration: "N/A"});
         console.log(recording);
 
         recordBtn.className = 'btn btn-success';
@@ -31,10 +24,10 @@ recordBtn.addEventListener('click', () => {
 
 
 playBtn.addEventListener('click', () => {
-    if (recording.length <= 1) {
+    if (recording.length <= 2) {
         console.log("Record something!");
         return;
-    } else playRecording();
+    } else playRecording(recording);
 });
 
 saveBtn.addEventListener('click', () => {

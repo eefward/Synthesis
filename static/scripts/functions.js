@@ -1,34 +1,11 @@
 // -------------------------------------------------- Key animations & Recording
-let recording = []; // why is this even here bro
-function createNoteAnimation(key, reversed) {
-
-}
-
-function playNote(key, ttl, isRecording=false, reversed=false) {
-    // PROPERTIES
+function createNoteAnimation(key, reversed=false) {
     const whiteDistBottom = '26vh'; // distance that the white key starts relative to the bottom on the screen
     const blackDistBottom = '26vh';
     const revWhiteDist = '45vh';
     const revBlackDist = '45vh';
 
-    const note = key.dataset.note;
-    if (isRecording) recording.push({note: note, time: Date.now(), duration: 5});
-
-    // If they want to see the key pressed
-    document.getElementById('notePressedInfo').innerText = note;
-
-    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    audio.currentTime = 0;
-    audio.play();
-    
-    /* experimental duration tests
-    setTimeout(() => {
-        audio.pause();
-        audio.currentTime = 0;
-    }, 2000);
-    */
-    
-    // Creating the sliding Bars
+    // Create bar
     const bar = document.createElement('div');
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
@@ -51,7 +28,7 @@ function playNote(key, ttl, isRecording=false, reversed=false) {
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
-    
+
     if (reversed) bar.style.transition = `transform 1000ms linear`;
     requestAnimationFrame(() => {
         if (reversed) bar.style.transform = 'translateY(100vh)';
@@ -83,6 +60,17 @@ function playNote(key, ttl, isRecording=false, reversed=false) {
     setTimeout(() => {
         key.style.filter = "brightness(100%)"; 
     }, 150);
+}
+
+function playNote(note, duration, wait=false) {
+    // if (isRecording) recording.push({note: note, time: Date.now() - recording[0].time, duration: 5});
+    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
+    if (wait) setTimeout(() => playNote(note, duration), 1000);
+    else {
+        audio.currentTime = 0;
+        audio.play();
+        setTimeout(() => audio.pause(), duration);
+    }
 }
 
 // -------------------------------------------------- Convert numerical to midi
@@ -218,14 +206,14 @@ function sendRecordingToServer() {
     .catch(error => console.error('Error:', error));
 }
 
-function playRecording() {
-    const playButton = document.getElementById('playButton');
+function playRecording(recording) {
+    if (recording.length === 2) return;
 
+    const playButton = document.getElementById('playButton');
     playButton.innerHTML = `<div class="circle"></div>`
 
-    if (recording.length === 2) {
-        playButton.textContent = 'Play Recording';
-        return;
+    for (let i = 1; i < recording.length - 1; i++) {
+        playNote(recording[i].note, 5000, true);
     }
 
     /*
