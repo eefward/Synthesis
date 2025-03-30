@@ -1,11 +1,7 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
-    
-
-    const whiteDistBottom = '20vh'; // distance that the white key starts relative to the bottom on the screen
-    const blackDistBottom = '20vh';
-    const revWhiteDist = '-40vh';
-    const revBlackDist = '-40vh';
+    const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
+    const reversedposition = '-40vh';
 
     // Create bar
     const bar = document.createElement('div');
@@ -15,16 +11,16 @@ function createNoteAnimation(key, reversed=false) {
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
-        bar.style.bottom = whiteDistBottom;
+        bar.style.bottom = notePosition;
 
-        if (reversed) bar.style.top = revWhiteDist
+        if (reversed) bar.style.top = reversedposition
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
-        bar.style.bottom = blackDistBottom;
+        bar.style.bottom = notePosition;
 
-        if (reversed) bar.style.top = revBlackDist;
+        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
     }
