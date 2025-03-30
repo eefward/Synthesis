@@ -50,15 +50,32 @@ function createNoteAnimation(key, reversed=false) {
     }, 150);
 }
 
-function playNote(note, duration, wait=false) {
+function playNote(note, duration, wait = false) {
     const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    if (wait) setTimeout(() => playNote(note, duration), 1000);
-    else {
+
+    if (wait) {
+        setTimeout(() => playNote(note, duration), 1000);
+    } else {
         audio.currentTime = 0;
         audio.play();
         setTimeout(() => audio.pause(), duration);
     }
 }
+
+function pressedDownFX(key, duration) {
+    if (!key) return;
+
+    if (key.classList.contains('white-key')) {
+        key.style.backgroundColor = '#ddd'; 
+    } else if (key.classList.contains('black-key')) {
+        key.style.backgroundColor = '#444';
+    }
+
+    setTimeout(() => {
+        key.style.backgroundColor = '';
+    }, duration);
+}
+
 
 // -------------------------------------------------- Convert numerical to midi
 // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
