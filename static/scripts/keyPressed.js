@@ -9,5 +9,6 @@ keys.forEach(key => {
         if (isRecording) recording.push({note: key.dataset.note, time: Date.now() - recording[0].time, duration: ttl});
         playNote(key.dataset.note, ttl);
         createNoteAnimation(key);
+        pressedDownFX(key, 150); // second parameter is duration, good for key holding
     });
 });
