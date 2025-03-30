@@ -1,14 +1,17 @@
 const keys = document.querySelectorAll('.key');
 const information = document.getElementById('notePressedInfo');
+
 let isMouseDown = false; // Track if mouse is pressed
 let lastPlayedNote = null; // Track the last played note to avoid repetition
 let lastPlayedTime = 0; // Store the time the last note was played
 const cooldown = 100; // Cooldown in milliseconds (e.g., 100ms = 0.1s)
+
 let recordingStartTime = null;
 let isRecording = false;
 let recordedNotes = [];
-let ttlVal = document.getElementById('ttl').value;
-const ttl = IsNaN(Number(ttlVal)) ? 1000 : Number(ttlVal);
+const ttlVal = Number(document.getElementById('ttl').value);
+const ttl = isNaN(ttlVal) ? 1000 : ttlVal;
+
 
 // ----------------------------------------------------------------- Key Pressing
 
@@ -19,7 +22,7 @@ keys.forEach(key => {
         }
 
         const elapsedTime = (Date.now() - recordingStartTime) / 1000; 
-        playNoteWithEffect(key.dataset.note);
+        playNoteWithEffect(key);
         recordedNotes.push({ note: key.dataset.note, time: elapsedTime }); 
         lastPlayedNote = key.dataset.note; 
         lastPlayedTime = elapsedTime; 
@@ -34,7 +37,7 @@ keys.forEach(key => {
 
         const currentTime = (Date.now() - recordingStartTime) / 1000; 
         if (isMouseDown && lastPlayedNote !== key.dataset.note && (currentTime - lastPlayedTime) >= cooldown) {
-            playNoteWithEffect(key.dataset.note);
+            playNoteWithEffect(key);
             recordedNotes.push({ note: key.dataset.note, time: currentTime }); 
             lastPlayedNote = key.dataset.note; 
             lastPlayedTime = currentTime; 
