@@ -1,6 +1,6 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
-    const notePosition = '0vh'; // distance that the white/black key animation starts relative to the bottom on the screen
+    const notePosition = '15vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
     const disappear = 1500;
 
@@ -219,6 +219,7 @@ async function playRecording(recording) {
     for (let i = 1; i < recording.length - 1; i++) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
+
         playNote(recording[i].note, 5000, true);
         createNoteAnimation(key, true);
     }
