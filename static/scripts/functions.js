@@ -1,10 +1,11 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
-    const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
+    const notePosition = '0vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
 
     // Create bar
     const bar = document.createElement('div');
+    bar.style.zIndex = '-1';
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
 
@@ -27,11 +28,10 @@ function createNoteAnimation(key, reversed=false) {
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
-    if (reversed) bar.style.transition = `transform 1000ms linear`;
     requestAnimationFrame(() => {
-        if (reversed) bar.style.transform = 'translateY(100vh)';
+        if (reversed) bar.style.transform = `translateY(160vh)`;
         else {
-            bar.style.transform = 'translateY(-100vh)'
+            bar.style.transform = `translateY(-120vh)`;
             bar.style.opacity = '0';
         }
     });
