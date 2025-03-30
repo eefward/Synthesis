@@ -1,6 +1,6 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
-    const notePosition = '15vh'; // distance that the white/black key animation starts relative to the bottom on the screen
+    const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
     const disappear = 1500;
 
@@ -15,7 +15,7 @@ function createNoteAnimation(key, reversed=false) {
         bar.classList.add('whiteSlidingBar');
         bar.style.bottom = notePosition;
 
-        if (reversed) bar.style.top = reversedposition
+        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (key.classList.contains('black-key')) {
@@ -220,7 +220,7 @@ async function playRecording(recording) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
 
-        playNote(recording[i].note, 5000, true);
+        playNote(recording[i].note, recording[i].duration, true);
         createNoteAnimation(key, true);
     }
 
