@@ -2,6 +2,7 @@
 function createNoteAnimation(key, reversed=false) {
     const notePosition = '15vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
+    const disappear = 1500;
 
     // Create bar
     const bar = document.createElement('div');
@@ -29,7 +30,10 @@ function createNoteAnimation(key, reversed=false) {
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
     requestAnimationFrame(() => {
-        if (reversed) bar.style.transform = `translateY(160vh)`;
+        if (reversed) {
+            bar.style.transform = `translateY(140vh)`;
+            bar.style.transition = `transform 1550ms linear`;
+        }
         else {
             bar.style.transform = `translateY(-120vh)`;
             bar.style.opacity = '0';
@@ -38,7 +42,7 @@ function createNoteAnimation(key, reversed=false) {
 
     setTimeout(() => {
         bar.remove();
-    }, ttl);
+    }, disappear);
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
