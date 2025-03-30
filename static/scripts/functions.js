@@ -2,8 +2,8 @@
 function createNoteAnimation(key, reversed=false) {
     
 
-    const whiteDistBottom = '26vh'; // distance that the white key starts relative to the bottom on the screen
-    const blackDistBottom = '26vh';
+    const whiteDistBottom = '20vh'; // distance that the white key starts relative to the bottom on the screen
+    const blackDistBottom = '20vh';
     const revWhiteDist = '-40vh';
     const revBlackDist = '-40vh';
 
