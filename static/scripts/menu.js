@@ -96,5 +96,3 @@ selectedColor.addEventListener('change', () => {
         });
     }
 });
-
-// -------------------------------------------------- Record 

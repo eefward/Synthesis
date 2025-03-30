@@ -1,24 +1,13 @@
-/*
-playNoteWithEffect(note, reversed): Plays a note (EX: D4)
-noteFormat(num): Converts Numerical to MIDI
-validCustomColorMsg(): Determines of Custom Color is valid
-saveCustomColor(): Saves the Custom Color across servers
-sendRecordingToServer(): Sends recording to Python server
-playRecording(): Plays 'recordedNotes'
-*/
-
-// -------------------------------------------------- Key animations
-function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
-    const note = key.dataset.note;
-
-    // If they want to see the key pressed
-    document.getElementById('notePressedInfo').innerText = note;
-
-    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-    audio.currentTime = 0; 
-    audio.play();
+// -------------------------------------------------- Key animations & Recording
+function createNoteAnimation(key, reversed=false) {
     
-    // Creating the sliding Bars
+
+    const whiteDistBottom = '26vh'; // distance that the white key starts relative to the bottom on the screen
+    const blackDistBottom = '26vh';
+    const revWhiteDist = '-40vh';
+    const revBlackDist = '-40vh';
+
+    // Create bar
     const bar = document.createElement('div');
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
@@ -26,20 +15,22 @@ function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
+        bar.style.bottom = whiteDistBottom;
 
-        if (reversed) bar.style.top = '-40vh'
+        if (reversed) bar.style.top = revWhiteDist
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
+        bar.style.bottom = blackDistBottom;
 
-        if (reversed) bar.style.top = '-35vh';
+        if (reversed) bar.style.top = revBlackDist;
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
-    
+
     if (reversed) bar.style.transition = `transform 1000ms linear`;
     requestAnimationFrame(() => {
         if (reversed) bar.style.transform = 'translateY(100vh)';
@@ -48,24 +39,10 @@ function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
             bar.style.opacity = '0';
         }
     });
-    
-    if (reversed) {
-        setTimeout(() => {
-            const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-            audio.currentTime = 0;
-            audio.play();
-            bar.style.opacity = '0';
-            keyClickEffect(key)
-        }, ttl);
 
-        setTimeout(() => {
-            bar.remove();
-        }, ttl + 600);
-    } else {
-        setTimeout(() => {
-            bar.remove();
-        }, 1000);
-    }
+    setTimeout(() => {
+        bar.remove();
+    }, ttl);
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
@@ -73,17 +50,23 @@ function playNoteWithEffect(key, ttl, reversed=false, isRecording=false) {
     }, 150);
 }
 
-function keyClickEffect(key) {
-    
+function playNote(note, duration, wait=false) {
+    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
+    if (wait) setTimeout(() => playNote(note, duration), 1000);
+    else {
+        audio.currentTime = 0;
+        audio.play();
+        setTimeout(() => audio.pause(), duration);
+    }
 }
 
 // -------------------------------------------------- Convert numerical to midi
+// 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
+const notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
 function noteFormat(num) {
-    // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
-    const notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
-
     const index = (num - 21) % 12;
     const octave = Math.floor((num - 12) / 12);
+
     return notes[index] + octave;
 }
 
@@ -199,43 +182,32 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-
 function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ recordedNotes })
+        body: JSON.stringify({ recording })
     })
     .then(response => response.json())
     .then(data => console.log('Server Response:', data))
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.log('Error:' + error));
 }
 
-function playRecording() {
-    const delayBeforePlaying = 1000;
+async function playRecording(recording) {
+    if (recording.length <= 2) return;
+
     const playButton = document.getElementById('playButton');
+    playButton.innerHTML = `<div class="circle"></div>`
 
-    playButton.textContent = 'Playing';
-
-    if (recordedNotes.length === 0) {
-        playButton.textContent = 'Play Recording';
-        return;
+    for (let i = 1; i < recording.length - 1; i++) {
+        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
+        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
+        playNote(recording[i].note, 5000, true);
+        createNoteAnimation(key, true);
     }
 
-    let lastNoteTime = recordedNotes[recordedNotes.length - 1].time; 
-    
-    recordedNotes.forEach(noteData => {
-        let delay = noteData.time * delayBeforePlaying; 
-
-        setTimeout(() => {
-            playNoteWithEffect(noteData.note, delayBeforePlaying, true);
-        }, delay);
-    });
-
-    let totalDuration = lastNoteTime * delayBeforePlaying;
-    setTimeout(() => {
-        playButton.textContent = 'Play Recording';
-    }, totalDuration);
+    console.log("finished");
+    playButton.innerHTML = `Play Recording`;
 }
 
 
