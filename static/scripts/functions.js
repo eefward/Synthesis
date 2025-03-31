@@ -50,16 +50,16 @@ function createNoteAnimation(key, reversed=false) {
     }, 150);
 }
 
-function playNote(note, duration, wait = false) {
-    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-
-    if (wait) {
-        setTimeout(() => playNote(note, duration), 1000);
-    } else {
+function playNote(note, duration, wait = false, audio = null) {
+    if (!audio) audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
+    
+    if (wait) setTimeout(() => playNote(note, duration, null, audio), 1000);
+    else {
         audio.currentTime = 0;
         audio.play();
         setTimeout(() => audio.pause(), duration);
     }
+    
 }
 
 function pressedDownFX(key, duration) {

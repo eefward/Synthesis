@@ -6,7 +6,7 @@ function onMidiMessage(event) {
         
         const key = noteFormat(note);
         playNote(key, 10000); // test duration
-        pressedDownFX(key, 500)
+        pressedDownFX(key, 150)
         createNoteAnimation(key)
     }
 }
