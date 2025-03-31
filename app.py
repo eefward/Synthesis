@@ -18,7 +18,9 @@ def home():
 def test():
     return render_template("test.html")
 
-recordings = []
+@app.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
 
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
@@ -36,8 +38,15 @@ def saveRecording():
 
     return jsonify({"message": "Recording saved!"})
 
+@app.route('/getRecordings', methods=['GET'])
+def get_recordings():
+    conn = sqlite3.connect("recordings.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, recordedNotes FROM recordings")
+    recordings = cursor.fetchall()
+    conn.close()
 
-
+    return jsonify(recordings)
 
 if __name__ == "__main__":
     app.run(debug=True)

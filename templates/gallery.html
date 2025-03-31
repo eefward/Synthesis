@@ -4,11 +4,6 @@
 
 {% block main %}
     <h2>Recordings Gallery</h2>
-    <div id="recordingsList">
-        {% for recording in recordings %}
-            <div class="recording-item">
-                <span>Recording {{ recording[0] }}</span>
-            </div>
-        {% endfor %}
-    </div>
+    <div id="recordingsList"></div>
+    <script src="{{ url_for('static', filename='scripts/gallery.js') }}"></script>
 {% endblock %}
