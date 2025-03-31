@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, jsonify, session
 from flask_cors import CORS 
+import json
 import sqlite3
 
 import functions
@@ -19,47 +20,21 @@ def test():
 
 recordings = []
 
-@app.route("/gallery")
-def gallery():
-    conn = sqlite3.connect("recordings.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, recordedNotes FROM recordings")
-    recordings = cursor.fetchall()
-    conn.close()
-
-    return render_template("gallery.html", recordings=recordings)
-
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
     data = request.json
     recorded_notes = data.get('recording')
 
-    if not recorded_notes or len(recorded_notes) == 0:
-        print("error")
-        return jsonify({"error": "No recorded notes provided"}), 400
+    if not recorded_notes or not isinstance(recorded_notes, list):
+        return jsonify({"error": "Invalid recording format"}), 400
 
     conn = sqlite3.connect("recordings.db")
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (str(recorded_notes),))
+    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (json.dumps(recorded_notes),))
     conn.commit()
     conn.close()
 
-    print("Received:", recorded_notes)
     return jsonify({"message": "Recording saved!"})
-    
-@app.route('/getRecording')
-def get_recording():
-    recording_id = request.args.get('id')
-    
-    conn = sqlite3.connect("recordings.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT recordedNotes FROM recordings WHERE id = ?", (recording_id,))
-    recording = cursor.fetchone()
-    conn.close()
-
-    if recording:
-        return jsonify({"recording": recording[0]})
-    return jsonify({"error": "Recording not found"}), 404
 
 
 
