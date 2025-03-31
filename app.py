@@ -21,7 +21,13 @@ recordings = []
 
 @app.route("/gallery")
 def gallery():
-    return render_template("gallery.html")
+    conn = sqlite3.connect("recordings.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, recordedNotes FROM recordings")
+    recordings = cursor.fetchall()
+    conn.close()
+
+    return render_template("gallery.html", recordings=recordings)
 
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
@@ -40,6 +46,21 @@ def saveRecording():
 
     print("Received:", recorded_notes)
     return jsonify({"message": "Recording saved!"})
+    
+@app.route('/getRecording')
+def get_recording():
+    recording_id = request.args.get('id')
+    
+    conn = sqlite3.connect("recordings.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT recordedNotes FROM recordings WHERE id = ?", (recording_id,))
+    recording = cursor.fetchone()
+    conn.close()
+
+    if recording:
+        return jsonify({"recording": recording[0]})
+    return jsonify({"error": "Recording not found"}), 404
+
 
 
 

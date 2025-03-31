@@ -5,6 +5,18 @@
 {% block main %}
     <h2>Recordings Gallery</h2>
     <div id="recordingsList">
-        
+        {% for recording in recordings %}
+            <div class="recording-item">
+                <span>Recording {{ recording[0] }}</span>
+                <button onclick="playRecording(recording[0])">Play</button>
+
+            </div>
+        {% endfor %}
     </div>
+
+    <script>
+        function playRecording(recordingId) {
+            window.location.href = "/?play=" + recordingId;
+        }
+    </script>
 {% endblock %}
