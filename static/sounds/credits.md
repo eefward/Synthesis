@@ -1,6 +1,6 @@
-https://github.com/daviddeborin/Piano-Sounds-High-Quality-
+soundPack1: https://github.com/daviddeborin/Piano-Sounds-High-Quality-
+soundPack2: https://freesound.org/people/TEDAgame/packs/25405/
 
-such a nice man
+such nice people
 
-I wrote a python script to automate changing 1.mp3 to A0, 88.mp3 to C8, etc.  
-rename_to_midi_format.py gave me cancer somehow
+I wrote a python script to automate changing their formats to the one required for this application
