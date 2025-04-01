@@ -135,20 +135,6 @@ body {
   flex-wrap: wrap;
 }
 
-#toggleInfo {
-  padding: 8px 12px;
-  background: #ffb158;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#toggleInfo:hover {
-  background: #e69a48;
-}
-
 .form-select {
   padding: 8px;
   font-size: 14px;
