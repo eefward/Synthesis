@@ -1,8 +1,7 @@
 // -------------------------------------------------- Key animations & Recording
-function createNoteAnimation(key, reversed=false) {
+function createNoteAnimation(key, speed=1500, reversed=false) {
     const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
-    const disappear = 1500;
 
     // Create bar
     const bar = document.createElement('div');
@@ -43,7 +42,7 @@ function createNoteAnimation(key, reversed=false) {
 
     setTimeout(() => {
         bar.remove();
-    }, disappear);
+    }, speed);
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
