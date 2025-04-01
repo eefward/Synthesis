@@ -207,7 +207,7 @@ async function playRecording(recording) {
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
 
         playNote(recording[i].note, recording[i].duration, true);
-        createNoteAnimation(key, true);
+        createNoteAnimation(key, 1500, true);
     }
 
     console.log("finished");
