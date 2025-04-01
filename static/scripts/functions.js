@@ -10,21 +10,22 @@ function createNoteAnimation(key, reversed=false) {
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
 
+    if (reversed) bar.style.top = reversedposition;
+    else bar.style.bottom = notePosition;
+
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
-        bar.style.bottom = notePosition;
-
-        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
+
+        key.style.backgroundColor = '#ddd'; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
-        bar.style.bottom = notePosition;
-
-        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
+
+        key.style.backgroundColor = '#888';
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
@@ -46,7 +47,8 @@ function createNoteAnimation(key, reversed=false) {
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
-        key.style.filter = "brightness(100%)"; 
+        key.style.filter = "brightness(100%)";
+        key.style.backgroundColor = ''; 
     }, 150);
 }
 
@@ -60,21 +62,6 @@ function playNote(note, duration, wait=false) {
         setTimeout(() => source.stop(), duration);
     } else console.log(`${note} note doesn't exist`);
 }
-
-function pressedDownFX(key, duration) {
-    if (!key) return;
-
-    if (key.classList.contains('white-key')) {
-        key.style.backgroundColor = '#ddd'; 
-    } else if (key.classList.contains('black-key')) {
-        key.style.backgroundColor = '#444';
-    }
-
-    setTimeout(() => {
-        key.style.backgroundColor = '';
-    }, duration);
-}
-
 
 // -------------------------------------------------- Convert numerical to midi
 // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
