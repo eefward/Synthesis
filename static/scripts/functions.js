@@ -226,7 +226,3 @@ async function playRecording(recording) {
     console.log("finished");
     playButton.innerHTML = `Play Recording`;
 }
-
-
-
-
