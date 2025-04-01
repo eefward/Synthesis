@@ -52,7 +52,6 @@ body {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
-  animation: hueRotate 1s infinite linear;
 }
 
 .black-key {

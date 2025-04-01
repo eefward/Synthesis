@@ -213,7 +213,8 @@ async function playRecording(recording) {
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
-    playButton.innerHTML = `<div class="circle"></div>`
+    const piano = document.getElementById('piano');
+    playButton.innerHTML = `<div class="circle"></div>`;
 
     for (let i = 1; i < recording.length - 1; i++) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
