@@ -52,9 +52,9 @@ function createNoteAnimation(key, reversed=false) {
 
 function playNote(note, duration, wait=false) {
     if (wait) setTimeout(() => playNote(note, duration), 1000);
-    else if (audioStorage[note]) {
+    else if (audioStorage[curSoundPack][note]) {
         const source = audioContext.createBufferSource();
-        source.buffer = audioStorage[note];
+        source.buffer = audioStorage[curSoundPack][note]
         source.connect(audioContext.destination);
         source.start();
         setTimeout(() => source.stop(), duration);

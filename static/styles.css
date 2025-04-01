@@ -19,7 +19,6 @@ body {
   z-index: -1;
 }
 
-
 .piano {
   display: flex;
   background: black;
@@ -271,4 +270,8 @@ body {
 
 .play-button:hover {
   background-color: #0056b3;
+}
+
+.form-check-label {
+  color: white;
 }

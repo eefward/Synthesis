@@ -96,3 +96,20 @@ selectedColor.addEventListener('change', () => {
         });
     }
 });
+
+// -------------------------------------------------- Switch sound packs
+let curSoundPack = 1;
+
+const switch1 = document.getElementById('switch1');
+const switch2 = document.getElementById('switch2');
+
+switch1.addEventListener('click', () => {
+    switch1.checked = true;
+    switch2.checked = false;
+    curSoundPack = 1;
+});
+switch2.addEventListener('click', () => {
+    switch2.checked = true;
+    switch1.checked = false;
+    curSoundPack = 2;
+});
