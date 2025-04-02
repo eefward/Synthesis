@@ -1,28 +1,3 @@
-// -------------------------------------------------- Toggle key note
-function keyToggle(visible, debounce) {
-    const infoBox = document.getElementById('notePressedInfo');
-    
-    if (visible) {
-        infoBox.style.opacity = '0';
-        setTimeout(() => {
-            infoBox.style.display = 'none';
-        }, debounce);
-    } else {
-        infoBox.style.display = 'block';
-        setTimeout(() => {
-            infoBox.style.opacity = '1';
-        }, 10);
-    }
-}
-
-const keyToggleButton = document.getElementById('toggleInfo');
-const debounce = 300;
-let keyInfoVisible = true;
-keyToggleButton.addEventListener('click', () => {
-    keyToggle(keyInfoVisible, debounce);
-    keyInfoVisible = !keyInfoVisible;
-});
-
 // -------------------------------------------------- Key animation color changes
 const css = document.getElementById('slidingBarsCSS');
 const selectedColor = document.getElementById('selectColor');
@@ -95,4 +70,21 @@ selectedColor.addEventListener('change', () => {
             } else alert(msg);
         });
     }
+});
+
+// -------------------------------------------------- Switch sound packs
+let curSoundPack = 1;
+
+const switch1 = document.getElementById('switch1');
+const switch2 = document.getElementById('switch2');
+
+switch1.addEventListener('click', () => {
+    switch1.checked = true;
+    switch2.checked = false;
+    curSoundPack = 1;
+});
+switch2.addEventListener('click', () => {
+    switch2.checked = true;
+    switch1.checked = false;
+    curSoundPack = 2;
 });

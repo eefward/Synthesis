@@ -1,8 +1,7 @@
 // -------------------------------------------------- Key animations & Recording
-function createNoteAnimation(key, reversed=false) {
+function createNoteAnimation(key, speed=1500, reversed=false) {
     const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
-    const disappear = 1500;
 
     // Create bar
     const bar = document.createElement('div');
@@ -10,21 +9,22 @@ function createNoteAnimation(key, reversed=false) {
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
 
+    if (reversed) bar.style.top = reversedposition;
+    else bar.style.bottom = notePosition;
+
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
         bar.classList.add('whiteSlidingBar');
-        bar.style.bottom = notePosition;
-
-        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
+
+        key.style.backgroundColor = '#ddd'; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
-        bar.style.bottom = notePosition;
-
-        if (reversed) bar.style.top = reversedposition;
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
+
+        key.style.backgroundColor = '#888';
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
@@ -42,40 +42,25 @@ function createNoteAnimation(key, reversed=false) {
 
     setTimeout(() => {
         bar.remove();
-    }, disappear);
+    }, speed);
 
     key.style.filter = "brightness(70%)";
     setTimeout(() => {
-        key.style.filter = "brightness(100%)"; 
+        key.style.filter = "brightness(100%)";
+        key.style.backgroundColor = ''; 
     }, 150);
 }
 
-function playNote(note, duration, wait = false) {
-    const audio = new Audio(`/static/sounds/${encodeURIComponent(note)}.mp3`);
-
-    if (wait) {
-        setTimeout(() => playNote(note, duration), 1000);
-    } else {
-        audio.currentTime = 0;
-        audio.play();
-        setTimeout(() => audio.pause(), duration);
-    }
+function playNote(note, duration, wait=false) {
+    if (wait) setTimeout(() => playNote(note, duration), 1000);
+    else if (audioStorage[curSoundPack][note]) {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioStorage[curSoundPack][note]
+        source.connect(audioContext.destination);
+        source.start();
+        setTimeout(() => source.stop(), duration);
+    } else console.log(`${note} note doesn't exist`);
 }
-
-function pressedDownFX(key, duration) {
-    if (!key) return;
-
-    if (key.classList.contains('white-key')) {
-        key.style.backgroundColor = '#ddd'; 
-    } else if (key.classList.contains('black-key')) {
-        key.style.backgroundColor = '#444';
-    }
-
-    setTimeout(() => {
-        key.style.backgroundColor = '';
-    }, duration);
-}
-
 
 // -------------------------------------------------- Convert numerical to midi
 // 21 is A0, 108 is C8 (A 88 key piano starts at A0 and ends at C8)
@@ -214,20 +199,17 @@ async function playRecording(recording) {
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
-    playButton.innerHTML = `<div class="circle"></div>`
+    const piano = document.getElementById('piano');
+    playButton.innerHTML = `<div class="circle"></div>`;
 
     for (let i = 1; i < recording.length - 1; i++) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
 
         playNote(recording[i].note, recording[i].duration, true);
-        createNoteAnimation(key, true);
+        createNoteAnimation(key, 1500, true);
     }
 
     console.log("finished");
     playButton.innerHTML = `Play Recording`;
 }
-
-
-
-

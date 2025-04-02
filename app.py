@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, jsonify, session
 from flask_cors import CORS 
+import json
 import sqlite3
 
 import functions
@@ -17,8 +18,6 @@ def home():
 def test():
     return render_template("test.html")
 
-recordings = []
-
 @app.route("/gallery")
 def gallery():
     return render_template("gallery.html")
@@ -28,18 +27,26 @@ def saveRecording():
     data = request.json
     recorded_notes = data.get('recording')
 
-    if not recorded_notes or len(recorded_notes) == 0:
-        print("error")
-        return jsonify({"error": "No recorded notes provided"}), 400
+    if not recorded_notes or not isinstance(recorded_notes, list):
+        return jsonify({"error": "Invalid recording format"}), 400
 
     conn = sqlite3.connect("recordings.db")
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (str(recorded_notes),))
+    cursor.execute("INSERT INTO recordings (recordedNotes) VALUES (?)", (json.dumps(recorded_notes),))
     conn.commit()
     conn.close()
 
-    print("Received:", recorded_notes)
     return jsonify({"message": "Recording saved!"})
+
+@app.route('/getRecordings', methods=['GET'])
+def get_recordings():
+    conn = sqlite3.connect("recordings.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, recordedNotes FROM recordings")
+    recordings = cursor.fetchall()
+    conn.close()
+
+    return jsonify(recordings)
 
 if __name__ == "__main__":
     app.run(debug=True)

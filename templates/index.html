@@ -3,8 +3,8 @@
 {% block title %}Piano{% endblock %}
 
 {% block main %}
+    <div class="progressBar"></div>
     <div class="menu">
-        <button type="button" id="toggleInfo">Toggle Key Clicked</button>
         <div id="notePressedInfo"></div>
 
         <select id="selectColor" class="form-select">
@@ -17,10 +17,22 @@
         </select>
 
         <input id="duration" class="form-control" type="number" placeholder="Duration (ms)" min="0">
+        <input id="speed" class="form-control" type="number" placeholder="Speed (ms)" min="0">
         
         <button class="btn btn-success" id="recordButton"><i class="fa-solid fa-play"></i></button>
         <button class="btn btn-secondary" id="playButton">Play Recording</button>
         <button class="btn btn-warning" id="saveButton">Save Recording</button>
+
+        <div class="container mt-5">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="switch1" checked>
+                <label class="form-check-label" for="switch1">Sound Pack 1</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="switch2">
+                <label class="form-check-label" for="switch2">Sound Pack 2</label>
+            </div>
+        </div>
     </div>
 
     <div id="gradiant"></div>
@@ -103,4 +115,5 @@
 
 {% block scripts %}
     <script src="/static/scripts/createPiano.js"></script>
+    <script src="/static/scripts/loadNotes.js"></script>
 {% endblock %}

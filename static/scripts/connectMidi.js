@@ -2,10 +2,9 @@ function onMidiMessage(event) {
     const [status, note, velocity] = event.data;
 
     if (status === 144 && velocity > 0) {
-        console.log(`Key pressed: ${note}`);
-        
-        const key = noteFormat(note);
-        playNote(key, 10000);
+        const key = document.querySelector(`[data-note="${a}"]`);
+        playNote(noteFormat(note), 10000); // test duration
+        createNoteAnimation(key);
     }
 }
 

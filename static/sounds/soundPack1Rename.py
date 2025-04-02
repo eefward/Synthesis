@@ -1,6 +1,6 @@
 import os
 
-dir = "fullpath"
+dir = "fullpath" # C:\Users\username\Synthesis\static\sounds\soundPack1
 notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
 for file in os.scandir(dir):
