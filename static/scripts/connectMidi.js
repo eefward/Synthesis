@@ -5,7 +5,7 @@ function onMidiMessage(event) {
         console.log(`Key pressed: ${note}`);
         
         const key = noteFormat(note);
-        playNoteWithEffect(key);
+        playNote(key, 10000);
     }
 }
 
