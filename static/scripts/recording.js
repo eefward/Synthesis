@@ -31,16 +31,28 @@ playBtn.addEventListener('click', () => {
     } else playRecording(recording);
 });
 
-saveBtn.addEventListener('click', () => {
-    saveBtn.textContent = "Saving...";
-    if (recording.length == 0) saveBtn.textContent = "No recording to save";
-    else {
-        try {
-            sendRecordingToServer();
-        } catch (error) {
-            saveBtn.textContent = "An error occured while saving, guestythebesty is selling";
-        }   
+saveBtn.addEventListener("click", () => {
+    const saveName = saveNameInput.value.trim();
+
+    if (saveName === "") {
+        saveStatus.textContent = "Please enter a save name.";
+        return;
     }
+
+    saveBtn.textContent = "Saving...";
+
+    if (recording.length === 0) {
+        saveStatus.textContent = "No recording to save.";
+        saveBtn.textContent = "Save Recording";
+    } else {
+        try {
+            sendRecordingToServer(saveName); 
+            saveStatus.textContent = `Saved as: ${saveName}`;
+        } catch (error) {
+            saveStatus.textContent = "An error occurred while saving.";
+        }
+    }
+
     setTimeout(() => {
         saveBtn.textContent = "Save Recording";
     }, 2000);
