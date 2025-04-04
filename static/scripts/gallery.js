@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 //let myArray = [{name: 'apple', id: 1}, {name: 'banana', id: 2}];
                 //let foundElement = myArray.find(element => element.name === 'banana');
                 
-                const title = recording[0].find(element => element.name === 'title');
-                const user = recording[0].find(element => element.name === 'user');
-                const duration = recording[0].find(element => element.name === 'duration');
-                const bpm = recording[0].find(element => element.name === 'BPM');
-                recordingTitle.textContent = `${title} by ${user}\n Duration: ${duration} BPM: ${bpm}`;
+                const title = recording[0].title;
+                const user = recording[0].user;
+                const duration = recording[0].duration;
+                const bpm = recording[0].BPM;
+                recordingTitle.textContent = `${title} by ${user}\nDuration: ${duration} BPM: ${bpm}`;
 
                 const playButton = document.createElement('button');
                 playButton.textContent = "▶ Play";
