@@ -40,6 +40,8 @@ saveBtn.addEventListener("click", () => {
     else if (recording.length === 0) saveBtn.textContent = "No recording to save";
     else {
         try {
+            recording.unshift({title: saveName, user: "bird", length: recording.length, BPM: 200}); // BPM and User have not been made or they did and idk where they are
+            console.log(recording);
             sendRecordingToServer(); 
             saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
