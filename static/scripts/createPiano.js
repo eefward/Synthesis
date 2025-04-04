@@ -18,7 +18,7 @@ for (let i = 0; i < totalKeys; i++) {
         key.classList.add('black-key');
         
         // it has some flaws, such as when you changed zoom percentage on broswers
-        const moveLeft = previousKey.offsetLeft + (previousKey.offsetWidth * 0.7);
+        const moveLeft = previousKey.offsetLeft + (previousKey.offsetWidth * 0.66);
         key.style.left = `${moveLeft}px`;
     } else { 
         key.classList.add('white-key');
@@ -32,3 +32,10 @@ for (let i = 0; i < totalKeys; i++) {
     key.appendChild(label);
     piano.appendChild(key);
 }
+
+const rect = piano.getBoundingClientRect();
+console.log(rect.width);
+
+const progressBar = document.createElement('div');
+progressBar.className = 'progressBar';
+piano.appendChild(progressBar);

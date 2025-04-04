@@ -41,6 +41,15 @@ body {
   color: #969696; 
 }
 
+.progressBar {
+  width: 1794px;
+  height: 20px;
+  background-color: green;
+  position: fixed;
+  transform: translateY(-5px);
+  z-index: 20;
+}
+
 .piano {
   display: flex;
   background: black;
@@ -70,7 +79,7 @@ body {
   background: white;
   border: 1px solid #ccc;
   border-radius: 0 0 4px 4px;
-  margin-right: 2px;
+  margin-right: 1px;
   position: relative;
   z-index: 1;
   flex-shrink: 0;
