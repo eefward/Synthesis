@@ -28,8 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const recordingTitle = document.createElement('h3');
 
-                //let myArray = [{name: 'apple', id: 1}, {name: 'banana', id: 2}];
-                //let foundElement = myArray.find(element => element.name === 'banana');
+                // here help me please
                 
                 const title = recording[0].title;
                 const user = recording[0].user;
