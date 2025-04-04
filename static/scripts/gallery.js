@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            recordingsList.innerHTML = ""; // Clear previous content
+            recordingsList.innerHTML = ""; 
 
             if (recordings.length === 0) {
                 console.log("No recordings found.");
@@ -27,7 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 recordingItem.classList.add('recording-item');
 
                 const recordingTitle = document.createElement('h3');
-                recordingTitle.textContent = `Recording ${recording[0]}`;
+
+                //let myArray = [{name: 'apple', id: 1}, {name: 'banana', id: 2}];
+                //let foundElement = myArray.find(element => element.name === 'banana');
+                
+                const title = recording[0].find(element => element.name === 'title');
+                const user = recording[0].find(element => element.name === 'user');
+                const duration = recording[0].find(element => element.name === 'duration');
+                const bpm = recording[0].find(element => element.name === 'BPM');
+                recordingTitle.textContent = `${title} by ${user}\n Duration: ${duration} BPM: ${bpm}`;
 
                 const playButton = document.createElement('button');
                 playButton.textContent = "▶ Play";
