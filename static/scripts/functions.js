@@ -184,8 +184,7 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-function sendRecordingToServer(sendname) {
-    console.log(sendname);
+function sendRecordingToServer() {
     fetch('/saveRecording', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

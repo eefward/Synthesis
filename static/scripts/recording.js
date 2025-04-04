@@ -1,6 +1,7 @@
 const recordBtn = document.getElementById('recordButton');
 const playBtn = document.getElementById('playButton');
 const saveBtn = document.getElementById('saveButton');
+const saveNameInput = document.getElementById('saveName');
 
 let recording = [];
 let isRecording = false;
@@ -16,7 +17,6 @@ recordBtn.addEventListener('click', () => {
     } else {
         recording.push({ note: "N/A", time: Date.now() - recording[0].time, duration: "N/A"});
         recording[0].time = 0;
-        console.log(recording);
 
         recordBtn.className = 'btn btn-success';
         recordBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
@@ -33,23 +33,18 @@ playBtn.addEventListener('click', () => {
 
 saveBtn.addEventListener("click", () => {
     const saveName = saveNameInput.value.trim();
-
-    if (saveName === "") {
-        saveStatus.textContent = "Please enter a save name.";
-        return;
-    }
-
     saveBtn.textContent = "Saving...";
 
-    if (recording.length === 0) {
-        saveStatus.textContent = "No recording to save.";
-        saveBtn.textContent = "Save Recording";
-    } else {
+    if (saveName === "") saveBtn.textContent = "No recording to save";
+    else if (recording.length === 0) saveBtn.textContent = "No recording to save";
+    else {
         try {
-            sendRecordingToServer(saveName); 
-            saveStatus.textContent = `Saved as: ${saveName}`;
+            recording.unshift({title: saveName, user: "bird", length: recording.length, BPM: 200}); // BPM and User have not been made or they did and idk where they are
+            console.log(recording);
+            sendRecordingToServer(); 
+            saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
-            saveStatus.textContent = "An error occurred while saving.";
+            saveBtn.textContent = "An error occurred while saving";
         }
     }
 
