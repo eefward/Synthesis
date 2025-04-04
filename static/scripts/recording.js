@@ -35,12 +35,12 @@ playBtn.addEventListener('click', () => {
 saveBtn.addEventListener("click", () => {
     const saveName = saveNameInput.value.trim();
     saveBtn.textContent = "Saving...";
-    
+
     if (saveName === "") saveBtn.textContent = "No recording to save";
     else if (recording.length === 0) saveBtn.textContent = "No recording to save";
     else {
         try {
-            sendRecordingToServer(saveName); 
+            sendRecordingToServer(); 
             saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
             saveBtn.textContent = "An error occurred while saving.";
