@@ -43,7 +43,7 @@ saveBtn.addEventListener("click", () => {
             sendRecordingToServer(); 
             saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
-            saveBtn.textContent = "An error occurred while saving.";
+            saveBtn.textContent = "An error occurred while saving";
         }
     }
 
