@@ -213,3 +213,10 @@ async function playRecording(recording) {
     console.log("finished");
     playButton.innerHTML = `Play Recording`;
 }
+
+// -------------------------------------------------- Progress bar animation
+function progressBarAnimation(currentTime, songDuration) {
+    const progressBar = document.getElementById('progressBar');
+
+    setTimeout()
+}
