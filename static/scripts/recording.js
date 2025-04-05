@@ -35,7 +35,6 @@ saveBtn.addEventListener("click", () => {
     const saveName = saveNameInput.value.trim();
     const bpm = 200;
     const user = userName.value.trim(); 
-
     const lastNote = recording[recording.length - 1];
     const duration = (lastNote && lastNote.time ? lastNote.time : 0) / 1000;
 

@@ -3,7 +3,6 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
     const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
     const reversedposition = '-40vh';
 
-    // Create bar
     const bar = document.createElement('div');
     bar.style.zIndex = '-1';
     document.getElementById('slidingBars').appendChild(bar); 
