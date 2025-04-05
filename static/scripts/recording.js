@@ -32,17 +32,21 @@ playBtn.addEventListener('click', () => {
 
 saveBtn.addEventListener("click", () => {
     const saveName = saveNameInput.value.trim();
-    saveBtn.textContent = "Saving...";
+    const bpm = 200;
+    const user = "bird"; 
 
-    if (saveName === "") saveBtn.textContent = "No recording to save";
-    else if (recording.length === 0) saveBtn.textContent = "No recording to save";
-    else {
+    if (saveName === "") {
+        saveBtn.textContent = "No name provided";
+    } else if (!recording || recording.length === 0) {
+        saveBtn.textContent = "No recording to save";
+    } else {
+        saveBtn.textContent = "Saving...";
         try {
-            recording.unshift({title: saveName, user: "bird", duration: recording.length, BPM: 200}); // BPM and User have not been made or they did and idk where they are
-            console.log(recording);
-            sendRecordingToServer(); 
+            const duration = recording.length;
+            sendRecordingToServer(recording, saveName, user, duration, bpm);
             saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
+            console.error(error);
             saveBtn.textContent = "An error occurred while saving";
         }
     }

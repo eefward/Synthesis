@@ -26,14 +26,19 @@ def create_database() -> None:
 def password_matches() -> bool:
     ...
 
-def temp_create_db() -> None:
+def createRecordingsDB() -> None:
     conn = sqlite3.connect("recordings.db")
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS recordings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            user TEXT,
+            duration TEXT,
+            BPM INTEGER,
             recordedNotes TEXT NOT NULL
         )
     ''')
     conn.commit()
     conn.close()
+

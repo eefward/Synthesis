@@ -184,15 +184,15 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-function sendRecordingToServer() {
+function sendRecordingToServer(recording, title, user, duration, bpm) {
     fetch('/saveRecording', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ recording })
+        body: JSON.stringify({ recording, title, user, duration, BPM: bpm })
     })
     .then(response => response.json())
     .then(data => console.log('Server Response:', data))
-    .catch(error => console.log('Error:' + error));
+    .catch(error => console.log('Error:', error));
 }
 
 async function playRecording(recording) {

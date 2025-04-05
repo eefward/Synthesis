@@ -15,39 +15,36 @@ document.addEventListener("DOMContentLoaded", function () {
             recordingsList.innerHTML = "";
 
             if (recordings.length === 0) {
-                console.log("No recordings found.");
                 recordingsList.innerHTML = "<p>No recordings found.</p>";
                 return;
             }
 
             recordings.forEach(recording => {
-                console.log("Processing recording:", recording);
+                const { title, user, duration, BPM } = recording;
 
+                // Create container
                 const recordingItem = document.createElement('div');
                 recordingItem.classList.add('recording-item');
 
-                const title = recording[0].title;
-                const user = recording[0].user;
-                const duration = recording[0].duration;
-                const bpm = recording[0].BPM;
-
-                const recordingTitle = document.createElement('div');
-                recordingTitle.classList.add('recording-title');
+                // Create title element
+                const recordingTitle = document.createElement('h3');
                 recordingTitle.innerHTML = `
                     <strong>${title}</strong><br>
-                    <span class="recording-user">by ${user}</span><br>
-                    <span class="recording-info">Duration: ${duration}</span><br>
-                    <span class="recording-info">BPM: ${bpm}</span>
+                    <small>by ${user}</small><br>
+                    <small>Duration: ${duration}</small><br>
+                    <small>BPM: ${BPM}</small>
                 `;
 
+                // Play button
                 const playButton = document.createElement('button');
                 playButton.textContent = "▶ Play";
                 playButton.classList.add('play-button');
                 playButton.addEventListener('click', () => {
-                    console.log(`Play button clicked for recording:`, recording[0]);
-                    // playRecording(recording); <-- You can enable this later
+                    console.log(`Play button clicked for "${title}"`);
+                    // TODO: implement playRecording(recording.recording) if desired
                 });
 
+                // Add elements to DOM
                 recordingItem.appendChild(recordingTitle);
                 recordingItem.appendChild(playButton);
                 recordingsList.appendChild(recordingItem);
@@ -55,5 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Recordings successfully added to the DOM.");
         })
-        .catch(error => console.error('Error fetching recordings:', error));
+        .catch(error => {
+            console.error('Error fetching recordings:', error);
+            const recordingsList = document.getElementById('recordingsList');
+            if (recordingsList) {
+                recordingsList.innerHTML = "<p>Error loading recordings.</p>";
+            }
+        });
 });
