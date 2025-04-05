@@ -236,19 +236,18 @@ body {
 
 #recordingsList {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 items per row */
-  gap: 15px; /* Space between items */
-  max-height: 300px; /* Limit height */
-  overflow-y: auto; /* Scroll vertically if needed */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 15px;
+  max-height: 300px;
+  overflow-y: auto; 
   padding: 15px;
-  border: 2px solid #ddd; /* Optional border */
+  border: 2px solid #ddd; 
   border-radius: 8px;
-  background: #f4f4f4; /* Light background */
-  justify-content: center; /* Center items */
-  align-content: center; /* Center items vertically */
+  background: #f4f4f4; 
+  justify-content: center; 
+  align-content: center; 
 }
 
-/* Centering the recordings container */
 .recording-item {
   display: flex;
   flex-direction: column;
@@ -260,11 +259,10 @@ body {
   padding: 15px;
   text-align: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 120px; /* Prevent shrinking */
+  min-width: 120px; 
   max-width: 150px;
 }
 
-/* Center text */
 .recording-item h3 {
   margin-bottom: 8px;
   font-size: 16px;
@@ -272,7 +270,6 @@ body {
   text-align: center;
 }
 
-/* Play button styling */
 .play-button {
   background-color: #007bff;
   color: white;
