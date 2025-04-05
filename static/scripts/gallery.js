@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            recordingsList.innerHTML = ""; 
+            recordingsList.innerHTML = "";
 
             if (recordings.length === 0) {
                 console.log("No recordings found.");
@@ -26,21 +26,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 const recordingItem = document.createElement('div');
                 recordingItem.classList.add('recording-item');
 
-                const recordingTitle = document.createElement('h3');
-
-                // here help me please
-                
                 const title = recording[0].title;
                 const user = recording[0].user;
                 const duration = recording[0].duration;
                 const bpm = recording[0].BPM;
-                recordingTitle.textContent = `${title} by ${user}\nDuration: ${duration} BPM: ${bpm}`;
+
+                const recordingTitle = document.createElement('div');
+                recordingTitle.classList.add('recording-title');
+                recordingTitle.innerHTML = `
+                    <strong>${title}</strong><br>
+                    <span class="recording-user">by ${user}</span><br>
+                    <span class="recording-info">Duration: ${duration}</span><br>
+                    <span class="recording-info">BPM: ${bpm}</span>
+                `;
 
                 const playButton = document.createElement('button');
                 playButton.textContent = "▶ Play";
                 playButton.classList.add('play-button');
                 playButton.addEventListener('click', () => {
-                    console.log(`Play button clicked for Recording ${recording[0]}`);
+                    console.log(`Play button clicked for recording:`, recording[0]);
+                    // playRecording(recording); <-- You can enable this later
                 });
 
                 recordingItem.appendChild(recordingTitle);
