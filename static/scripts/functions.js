@@ -18,13 +18,10 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
         bar.style.width = `${keyRect.width * 0.9}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`; 
 
-        key.style.backgroundColor = '#ddd'; 
     } else if (key.classList.contains('black-key')) {
         bar.classList.add('blackSlidingBar');
         bar.style.width = `${keyRect.width}px`; 
         bar.style.height = `${keyRect.height * 1.25}px`;
-
-        key.style.backgroundColor = '#888';
     }
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
@@ -52,8 +49,7 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
                 key.style.filter = "brightness(100%)";
                 key.style.backgroundColor = '';
             }, 150); 
-        }, 300); 
-        
+        }, 1150); 
     }
     else {
         key.style.filter = "brightness(70%)";
