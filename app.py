@@ -25,48 +25,49 @@ def gallery():
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
     data = request.json
-
-    recorded_notes = data.get('recording')
     title = data.get('title')
     user = data.get('user')
     duration = data.get('duration')
-    bpm = data.get('BPM')
+    BPM = data.get('BPM')
+    notes = data.get('notes')  # Get the notes array
 
-    if not recorded_notes or not isinstance(recorded_notes, list):
-        return jsonify({"error": "Invalid recording format"}), 400
-
+    # Save to the database
     conn = sqlite3.connect("recordings.db")
     cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO recordings (title, user, duration, BPM, recordedNotes)
-        VALUES (?, ?, ?, ?, ?)
-    """, (title, user, duration, bpm, json.dumps(recorded_notes)))
+    cursor.execute(
+        "INSERT INTO recordings (title, user, duration, BPM, notes) VALUES (?, ?, ?, ?, ?)",
+        (title, user, duration, BPM, json.dumps(notes))  # Save notes as JSON
+    )
     conn.commit()
     conn.close()
 
     return jsonify({"message": "Recording saved!"})
 
-
 @app.route('/getRecordings', methods=['GET'])
-def get_recordings():
-    conn = sqlite3.connect("recordings.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, title, user, duration, BPM, recordedNotes FROM recordings")
-    rows = cursor.fetchall()
-    conn.close()
+def getRecordings():
+    try:
+        conn = sqlite3.connect("recordings.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, user, duration, BPM, recordedNotes FROM recordings")
+        recordings = cursor.fetchall()
+        conn.close()
 
-    recordings = []
-    for row in rows:
-        recordings.append({
-            "id": row[0],
-            "title": row[1],
-            "user": row[2],
-            "duration": row[3],
-            "BPM": row[4],
-            "recording": json.loads(row[5])
-        })
+        recordings_list = [
+            {
+                'title': r[1],
+                'user': r[2],
+                'duration': r[3],
+                'BPM': r[4],
+                'notes': json.loads(r[5])  
+            }
+            for r in recordings
+        ]
+        return jsonify(recordings_list)
 
-    return jsonify(recordings)
+    except Exception as e:
+        print("Error fetching recordings:", e)
+        return jsonify({"error": "Failed to fetch recordings"}), 500
+
 
 
 if __name__ == "__main__":

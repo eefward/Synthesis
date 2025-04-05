@@ -29,9 +29,18 @@
     
     <div class="navbar">
         <a href="test"><button>Go to Test</button></a>
-        <a href="gallery"><button>Go to Gallery</button></a>
+        <button id="openGalleryBtn">Open Gallery</button>
         <a href="/"><button>Go to Piano</button></a>
-    </div>    
+    </div>
+    
+    <!-- Gallery Overlay Modal -->
+    <div id="galleryOverlay" class="gallery-overlay">
+        <div class="gallery-content">
+            <button id="closeGalleryBtn" class="close-btn">X</button>
+            <div id="recordingsList"></div> <!-- Gallery will be injected here -->
+        </div>
+    </div>
+    
 
     {% block main %}{% endblock %}
 
@@ -42,5 +51,6 @@
     <script src="/static/scripts/checkLocalStorage.js"></script>
     <script src="/static/scripts/connectMidi.js"></script>
     <script src="/static/scripts/recording.js"></script>
+    <script src="/static/scripts/gallery.js"></script>
 </body>
 </html>
