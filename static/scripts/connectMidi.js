@@ -2,7 +2,7 @@ function onMidiMessage(event) {
     const [status, note, velocity] = event.data;
 
     if (status === 144 && velocity > 0) {
-        const key = document.querySelector(`[data-note="${a}"]`);
+        const key = document.querySelector(`[data-note="${noteFormat(note)}"]`);
         playNote(noteFormat(note), 10000); // test duration
         createNoteAnimation(key);
     }
