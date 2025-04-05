@@ -42,11 +42,10 @@ body {
 }
 
 .progressBar {
-  width: 1794px;
+  width: 1793px;
   height: 20px;
-  background-color: green;
   position: fixed;
-  transform: translateY(-5px);
+  transform: translateY(-25px);
   z-index: 20;
 }
 
