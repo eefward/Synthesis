@@ -2,6 +2,7 @@ const recordBtn = document.getElementById('recordButton');
 const playBtn = document.getElementById('playButton');
 const saveBtn = document.getElementById('saveButton');
 const saveNameInput = document.getElementById('saveName');
+const userName = document.getElementById('username');
 
 let recording = [];
 let isRecording = false;
@@ -33,7 +34,7 @@ playBtn.addEventListener('click', () => {
 saveBtn.addEventListener("click", () => {
     const saveName = saveNameInput.value.trim();
     const bpm = 200;
-    const user = "bird"; 
+    const user = userName.value.trim(); 
 
     const lastNote = recording[recording.length - 1];
     const duration = (lastNote && lastNote.time ? lastNote.time : 0) / 1000;
@@ -47,6 +48,7 @@ saveBtn.addEventListener("click", () => {
     };
     
     if (saveName === "") saveBtn.textContent = "No name provided";
+    else if (user === "") saveBtn.textContent = "No user provided";
     else if (!recording || recording.length === 0) saveBtn.textContent = "No recording to save";
     else {
         saveBtn.textContent = "Saving...";

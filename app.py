@@ -24,24 +24,35 @@ def gallery():
 
 @app.route('/saveRecording', methods=['POST'])
 def saveRecording():
-    data = request.json
-    title = data.get('title')
-    user = data.get('user')
-    duration = data.get('duration')
-    BPM = data.get('BPM')
-    notes = data.get('notes')  # Get the notes array
+    try:
+        data = request.json
+        print("Received data:", data)
 
-    # Save to the database
-    conn = sqlite3.connect("recordings.db")
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO recordings (title, user, duration, BPM, notes) VALUES (?, ?, ?, ?, ?)",
-        (title, user, duration, BPM, json.dumps(notes))  # Save notes as JSON
-    )
-    conn.commit()
-    conn.close()
+        title = data.get('title')
+        user = data.get('user')
+        duration = data.get('duration')
+        bpm = data.get('BPM')
+        notes = data.get('notes')
 
-    return jsonify({"message": "Recording saved!"})
+        if not all([title, user, duration is not None, bpm, notes]):
+            print("Missing data in the request")
+            return jsonify({"error": "Missing or invalid data"}), 400
+
+        conn = sqlite3.connect("recordings.db")
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO recordings (title, user, duration, BPM, recordedNotes)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (title, user, duration, bpm, json.dumps(notes)))
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Recording saved!"})
+    
+    except Exception as e:
+        print("Error in /saveRecording:", e)
+        return jsonify({"error": "Server error"}), 500
+
 
 @app.route('/getRecordings', methods=['GET'])
 def getRecordings():
