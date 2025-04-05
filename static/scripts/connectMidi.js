@@ -3,7 +3,8 @@ function onMidiMessage(event) {
 
     if (status === 144 && velocity > 0) {
         const key = document.querySelector(`[data-note="${noteFormat(note)}"]`);
-        if (isRecording) recording.push({note: noteFormat(note), time: Date.now() - recording[0].time, duration: duration});
+        if (isRecording) recording.push({note: noteFormat(note), time: Date.now() - recording[0].time, duration: 10000});
+        console.log(noteFormat(note));
         playNote(noteFormat(note), 10000); // test duration
         createNoteAnimation(key);
     }
