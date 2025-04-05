@@ -44,11 +44,24 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
         bar.remove();
     }, speed);
 
-    key.style.filter = "brightness(70%)";
-    setTimeout(() => {
-        key.style.filter = "brightness(100%)";
-        key.style.backgroundColor = ''; 
-    }, 150);
+    if (reversed) {
+        setTimeout(() => {
+            key.style.filter = "brightness(70%)";
+        
+            setTimeout(() => {
+                key.style.filter = "brightness(100%)";
+                key.style.backgroundColor = '';
+            }, 150); 
+        }, 300); 
+        
+    }
+    else {
+        key.style.filter = "brightness(70%)";
+        setTimeout(() => {
+            key.style.filter = "brightness(100%)";
+            key.style.backgroundColor = ''; 
+        }, 150);
+    }
 }
 
 function playNote(note, duration, wait=false) {
