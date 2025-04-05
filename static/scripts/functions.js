@@ -184,22 +184,22 @@ function saveCustomColor() {
 }
 
 // -------------------------------------------------- Recording & Playback
-function sendRecordingToServer() {
+function sendRecordingToServer(recordingData) {
     fetch('/saveRecording', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ recording })
+        body: JSON.stringify(recordingData)
     })
     .then(response => response.json())
     .then(data => console.log('Server Response:', data))
-    .catch(error => console.log('Error:' + error));
+    .catch(error => console.log('Error:', error));
 }
 
 async function playRecording(recording) {
+    console.log(recording);
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
-    const piano = document.getElementById('piano');
     playButton.innerHTML = `<div class="circle"></div>`;
 
     for (let i = 1; i < recording.length - 1; i++) {
