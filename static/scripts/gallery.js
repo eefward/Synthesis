@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch('/getRecordings')
             .then(response => response.json())
             .then(recordings => {
-                console.log('Fetched recordings:', recordings);  
-    
                 const recordingsList = document.getElementById('recordingsList');
                 recordingsList.innerHTML = ''; 
     
