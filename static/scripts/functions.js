@@ -204,7 +204,6 @@ function sendRecordingToServer(recordingData) {
 }
 
 async function playRecording(recording) {
-    console.log(recording);
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
