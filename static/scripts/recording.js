@@ -35,6 +35,11 @@ saveBtn.addEventListener("click", () => {
     const bpm = 200;
     const user = "bird"; 
 
+    const lastNote = recording[recording.length - 1];
+    const durationMs = lastNote && lastNote.time ? lastNote.time : 0;
+    const durationSec = durationMs / 1000;
+    const formattedDuration = durationSec.toFixed(2) + "s"; // "3.75s"
+
     if (saveName === "") {
         saveBtn.textContent = "No name provided";
     } else if (!recording || recording.length === 0) {
@@ -42,8 +47,7 @@ saveBtn.addEventListener("click", () => {
     } else {
         saveBtn.textContent = "Saving...";
         try {
-            const duration = recording.length;
-            sendRecordingToServer(recording, saveName, user, duration, bpm);
+            sendRecordingToServer(recording, saveName, user, formattedDuration, bpm);
             saveBtn.textContent = `Saved as: ${saveName}`;
         } catch (error) {
             console.error(error);
