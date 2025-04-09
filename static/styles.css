@@ -49,7 +49,8 @@ body {
   box-shadow: 0 0 5px rgba(73, 73, 73, 0.5);
 }
 
-.progressBar {
+#progressBar {
+  background-color: green;
   width: 1793px;
   height: 20px;
   position: fixed;

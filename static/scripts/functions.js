@@ -207,7 +207,10 @@ async function playRecording(recording) {
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
-    playButton.innerHTML = `<div class="circle"></div>`;
+    playButton.innerHTML = 'Playing...';
+
+    const songDuration = recording[recording.length - 1].time - recording[0].time;
+    progressBarAnimation(songDuration);
 
     for (let i = 1; i < recording.length - 1; i++) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
@@ -222,8 +225,22 @@ async function playRecording(recording) {
 }
 
 // -------------------------------------------------- Progress bar animation
-function progressBarAnimation(currentTime, songDuration) {
-    const progressBar = document.getElementById('progressBar');
 
-    setTimeout()
+function updateBar(width, progressBar) {
+    progressBar.style.width = `${width}px`;
+}
+
+function progressBarAnimation(songDuration, currentTimePercentage=0.0) {
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar === null) return;
+
+    let interval = songDuration / 1000;
+    let loop = setInterval(() => {
+        console.log(currentTimePercentage);
+        let currentWidth = 1793 * currentTimePercentage;
+        updateBar(currentWidth, progressBar);
+        currentTimePercentage += .001;
+
+        if (currentTimePercentage >= 1) clearInterval(loop);
+    }, interval); // Updates 1000 times intotal
 }
