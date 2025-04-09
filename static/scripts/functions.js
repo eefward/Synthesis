@@ -233,14 +233,19 @@ function updateBar(width, progressBar) {
 function progressBarAnimation(songDuration, currentTimePercentage=0.0) {
     const progressBar = document.getElementById('progressBar');
     if (progressBar === null) return;
-
+    
     let interval = songDuration / 1000;
+    progressBar.style.backgroundColor = 'green';
+
     let loop = setInterval(() => {
         console.log(currentTimePercentage);
         let currentWidth = 1793 * currentTimePercentage;
         updateBar(currentWidth, progressBar);
         currentTimePercentage += .001;
 
-        if (currentTimePercentage >= 1) clearInterval(loop);
+        if (currentTimePercentage >= 1) {
+            progressBar.style.backgroundColor = 'black';
+            clearInterval(loop);
+        }
     }, interval); // Updates 1000 times intotal
 }
