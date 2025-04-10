@@ -220,12 +220,13 @@ async function playRecording(recording) {
         createNoteAnimation(key, 1500, true);
     }
 
-    console.log("finished");
-    playButton.innerHTML = `Play Recording`;
+    setTimeout(() => {
+        console.log("finished");
+        playButton.innerHTML = `Play Recording`;
+    }, recording[recording.length - 1].time - recording[recording.length - 2].time)
 }
 
 // -------------------------------------------------- Progress bar animation
-
 function updateBar(width, progressBar) {
     progressBar.style.width = `${width}px`;
 }
@@ -234,18 +235,24 @@ function progressBarAnimation(songDuration, currentTimePercentage=0.0) {
     const progressBar = document.getElementById('progressBar');
     if (progressBar === null) return;
     
-    let interval = songDuration / 1000;
+    let interval = songDuration / 1000; // Updates 1000 times in total
+    let increment = .001;
+
+    if (interval < 10) { // 10 milliseconds or below makes it bug out
+        increment = .01 / interval;
+        interval = 10;
+    }
+
     progressBar.style.backgroundColor = 'green';
 
     let loop = setInterval(() => {
-        console.log(currentTimePercentage);
         let currentWidth = 1793 * currentTimePercentage;
         updateBar(currentWidth, progressBar);
-        currentTimePercentage += .001;
+        currentTimePercentage += increment;
 
         if (currentTimePercentage >= 1) {
             progressBar.style.backgroundColor = 'black';
             clearInterval(loop);
         }
-    }, interval); // Updates 1000 times intotal
+    }, interval);
 }
