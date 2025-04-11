@@ -191,7 +191,7 @@ function saveCustomColor() {
     localStorage.setItem('colorStorage', JSON.stringify(rgba));
 }
 
-// -------------------------------------------------- Recording & Playback
+// -------------------------------------------------- Playback
 function sendRecordingToServer(recordingData) {
     fetch('/saveRecording', {
         method: 'POST',
@@ -203,15 +203,39 @@ function sendRecordingToServer(recordingData) {
     .catch(error => console.log('Error:', error));
 }
 
-async function playRecording(recording) {
+async function playRecording(recording, start=0.0) {
     if (recording.length <= 2) return;
 
     const playButton = document.getElementById('playButton');
+    const progressBar = document.getElementById('progressBar');
+
     playButton.innerHTML = 'Playing...';
+    progressBar.style.backgroundColor = 'green';
 
     const songDuration = recording[recording.length - 1].time - recording[0].time;
-    progressBarAnimation(songDuration);
+    let currentTimePercentage = start;
+    let interval = songDuration / 1000; // Updates 1000 times in total
+    let increment = .001;
 
+    if (interval < 10) { // 10 milliseconds or below makes it bug out
+        increment = .01 / interval; // Algebra!
+        interval = 10; // 10 milliseconds minimum
+    }
+
+    let loop = setInterval(() => {
+        let currentWidth = 1793 * currentTimePercentage;
+        progressBar.style.width = `${currentWidth}px`;
+        currentTimePercentage += increment;
+
+        if (currentTimePercentage >= 1) {
+            console.log("finished");
+            progressBar.style.backgroundColor = 'black';
+            playButton.innerHTML = `Play Recording`;
+            clearInterval(loop);
+        }
+    }, interval);
+
+    // Play the actual notes
     for (let i = 1; i < recording.length - 1; i++) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
@@ -219,40 +243,4 @@ async function playRecording(recording) {
         playNote(recording[i].note, recording[i].duration, true);
         createNoteAnimation(key, 1500, true);
     }
-
-    setTimeout(() => {
-        console.log("finished");
-        playButton.innerHTML = `Play Recording`;
-    }, recording[recording.length - 1].time - recording[recording.length - 2].time)
-}
-
-// -------------------------------------------------- Progress bar animation
-function updateBar(width, progressBar) {
-    progressBar.style.width = `${width}px`;
-}
-
-function progressBarAnimation(songDuration, currentTimePercentage=0.0) {
-    const progressBar = document.getElementById('progressBar');
-    if (progressBar === null) return;
-    
-    let interval = songDuration / 1000; // Updates 1000 times in total
-    let increment = .001;
-
-    if (interval < 10) { // 10 milliseconds or below makes it bug out
-        increment = .01 / interval;
-        interval = 10;
-    }
-
-    progressBar.style.backgroundColor = 'green';
-
-    let loop = setInterval(() => {
-        let currentWidth = 1793 * currentTimePercentage;
-        updateBar(currentWidth, progressBar);
-        currentTimePercentage += increment;
-
-        if (currentTimePercentage >= 1) {
-            progressBar.style.backgroundColor = 'black';
-            clearInterval(loop);
-        }
-    }, interval);
 }
