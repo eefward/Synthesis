@@ -212,6 +212,7 @@ async function playRecording(recording, start=0.0) {
     playButton.innerHTML = 'Playing...';
     progressBar.style.backgroundColor = 'green';
 
+    // Progress bar animation
     const songDuration = recording[recording.length - 1].time - recording[0].time;
     let currentTimePercentage = start;
     let interval = songDuration / 1000; // Updates 1000 times in total
