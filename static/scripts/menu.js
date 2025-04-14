@@ -2,7 +2,6 @@
 const css = document.getElementById('slidingBarsCSS');
 const selectedColor = document.getElementById('selectColor');
 
-
 selectedColor.addEventListener('change', () => {
     const color = selectedColor.value;
     

@@ -32,7 +32,6 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
         }
         else {
             bar.style.transform = `translateY(-120vh)`;
-            bar.style.opacity = '0';
         }
     });
 
@@ -62,9 +61,11 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
 function playNote(note, duration, wait=false) {
     if (wait) setTimeout(() => playNote(note, duration), 1000);
     else if (audioStorage[curSoundPack][note]) {
+        console.log(note);
         const source = audioContext.createBufferSource();
         source.buffer = audioStorage[curSoundPack][note]
         source.connect(audioContext.destination);
+        console.log("it should';ve played");
         source.start();
         setTimeout(() => source.stop(), duration);
     } else console.log(`${note} note doesn't exist`);
@@ -212,6 +213,15 @@ async function playRecording(recording, start=0.0) {
     playButton.innerHTML = 'Playing...';
     progressBar.style.backgroundColor = 'green';
 
+    // Play the actual notes
+    for (let i = 1; i < recording.length - 1; i++) {
+        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
+        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
+
+        playNote(recording[i].note, recording[i].duration, true);
+        createNoteAnimation(key, 1500, true);
+    }
+
     // Progress bar animation
     const songDuration = recording[recording.length - 1].time - recording[0].time;
     let currentTimePercentage = start;
@@ -235,13 +245,4 @@ async function playRecording(recording, start=0.0) {
             clearInterval(loop);
         }
     }, interval);
-
-    // Play the actual notes
-    for (let i = 1; i < recording.length - 1; i++) {
-        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
-        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
-
-        playNote(recording[i].note, recording[i].duration, true);
-        createNoteAnimation(key, 1500, true);
-    }
 }
