@@ -63,7 +63,7 @@ function playNote(note, duration, wait=false) {
     else if (audioStorage[curSoundPack][note]) {
         console.log(note);
         const source = audioContext.createBufferSource();
-        source.buffer = audioStorage[curSoundPack][note]
+        source.buffer = audioStorage[curSoundPack][note];
         source.connect(audioContext.destination);
         console.log("it should';ve played");
         source.start();
@@ -218,7 +218,7 @@ async function playRecording(recording, start=0.0) {
         const key = document.querySelector(`[data-note="${recording[i].note}"]`);
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
 
-        playNote(recording[i].note, recording[i].duration, true);
+        playNote(recording[i].note, recording[i].time, true);
         createNoteAnimation(key, 1500, true);
     }
 
