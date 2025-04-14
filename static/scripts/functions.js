@@ -213,15 +213,6 @@ async function playRecording(recording, start=0.0) {
     playButton.innerHTML = 'Playing...';
     progressBar.style.backgroundColor = 'green';
 
-    // Play the actual notes
-    for (let i = 1; i < recording.length - 1; i++) {
-        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
-        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
-
-        playNote(recording[i].note, recording[i].time, true);
-        createNoteAnimation(key, 1500, true);
-    }
-
     // Progress bar animation
     const songDuration = recording[recording.length - 1].time - recording[0].time;
     let currentTimePercentage = start;
@@ -245,4 +236,13 @@ async function playRecording(recording, start=0.0) {
             clearInterval(loop);
         }
     }, interval);
+
+    // Play the actual notes
+    for (let i = 1; i < recording.length - 1; i++) {
+        const key = document.querySelector(`[data-note="${recording[i].note}"]`);
+        await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
+
+        playNote(recording[i].note, recording[i].time, true);
+        createNoteAnimation(key, 1500, true);
+    }
 }
