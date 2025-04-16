@@ -1,15 +1,9 @@
 // -------------------------------------------------- Key animations & Recording
-function createNoteAnimation(key, speed=1500, reversed=false) {
-    const notePosition = '20vh'; // distance that the white/black key animation starts relative to the bottom on the screen
-    const reversedposition = '-40vh';
-
+function createNoteAnimation(key, reversed=false) {
     const bar = document.createElement('div');
     bar.style.zIndex = '-1';
     document.getElementById('slidingBars').appendChild(bar); 
     bar.classList.add('slide-bar');
-
-    if (reversed) bar.style.top = reversedposition;
-    else bar.style.bottom = notePosition;
 
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) {
@@ -25,47 +19,35 @@ function createNoteAnimation(key, speed=1500, reversed=false) {
 
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
-    requestAnimationFrame(() => {
-        if (reversed) {
-            bar.style.transform = `translateY(140vh)`;
-            bar.style.transition = `transform 1550ms linear`;
-        }
-        else {
-            bar.style.transform = `translateY(-120vh)`;
-        }
-    });
+    // distance that the white/black key animation starts relative to the bottom on the screen
+    if (reversed) {
+        bar.style.bottom = '100vh';
+        requestAnimationFrame(() => bar.style.transform = `translateY(100vh)`);
+    } else {
+        bar.style.bottom = '20vh';
+        requestAnimationFrame(() => bar.style.transform = `translateY(-120vh)`);
+    }
 
     setTimeout(() => {
         bar.remove();
-    }, speed);
+    }, 4000);
 
-    if (reversed) {
-        setTimeout(() => {
-            key.style.filter = "brightness(70%)";
-        
-            setTimeout(() => {
-                key.style.filter = "brightness(100%)";
-                key.style.backgroundColor = '';
-            }, 150); 
-        }, 1150); 
-    }
-    else {
+    setTimeout(() => {
         key.style.filter = "brightness(70%)";
+    
         setTimeout(() => {
             key.style.filter = "brightness(100%)";
-            key.style.backgroundColor = ''; 
-        }, 150);
-    }
+            key.style.backgroundColor = '';
+        }, 150); 
+    }, reversed ? 4000 : 0);
 }
 
 function playNote(note, duration, wait=false) {
-    if (wait) setTimeout(() => playNote(note, duration), 1000);
+    if (wait) setTimeout(() => playNote(note, duration), 5000);
     else if (audioStorage[curSoundPack][note]) {
-        console.log(note);
         const source = audioContext.createBufferSource();
         source.buffer = audioStorage[curSoundPack][note];
         source.connect(audioContext.destination);
-        console.log("it should';ve played");
         source.start();
         setTimeout(() => source.stop(), duration);
     } else console.log(`${note} note doesn't exist`);
@@ -243,6 +225,6 @@ async function playRecording(recording, start=0.0) {
         await new Promise(resolve => setTimeout(resolve, recording[i].time - recording[i - 1].time));
 
         playNote(recording[i].note, recording[i].time, true);
-        createNoteAnimation(key, 1500, true);
+        createNoteAnimation(key, true);
     }
 }
