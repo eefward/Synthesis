@@ -30,7 +30,7 @@ function createNoteAnimation(key, reversed=false) {
 
     setTimeout(() => {
         bar.remove();
-    }, 4000);
+    }, 5000);
 
     setTimeout(() => {
         key.style.filter = "brightness(70%)";
@@ -43,7 +43,7 @@ function createNoteAnimation(key, reversed=false) {
 }
 
 function playNote(note, duration, wait=false) {
-    if (wait) setTimeout(() => playNote(note, duration), 5000);
+    if (wait) setTimeout(() => playNote(note, duration), 4000);
     else if (audioStorage[curSoundPack][note]) {
         const source = audioContext.createBufferSource();
         source.buffer = audioStorage[curSoundPack][note];
