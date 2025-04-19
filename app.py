@@ -14,9 +14,21 @@ CORS(app)
 def home():
     return render_template("index.html")
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    if not username or not password:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    print(f"received {username}, {password}")
+
+    return jsonify({'message': 'Signup success'}), 200
+
 @app.route("/test")
 def test():
-    return render_template("test.html")
+    return render_template("login.html")
 
 @app.route("/gallery")
 def gallery():
