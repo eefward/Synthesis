@@ -6,17 +6,11 @@ function createNoteAnimation(key, reversed=false) {
     bar.classList.add('slide-bar');
 
     const keyRect = key.getBoundingClientRect();
-    if (key.classList.contains('white-key')) {
-        bar.classList.add('whiteSlidingBar');
-        bar.style.width = `${keyRect.width * 0.9}px`; 
-        bar.style.height = `${keyRect.height * 1.25}px`; 
-
-    } else if (key.classList.contains('black-key')) {
-        bar.classList.add('blackSlidingBar');
-        bar.style.width = `${keyRect.width}px`; 
-        bar.style.height = `${keyRect.height * 1.25}px`;
-    }
-
+    if (key.classList.contains('white-key')) bar.classList.add('whiteSlidingBar');
+    else if (key.classList.contains('black-key')) bar.classList.add('blackSlidingBar');
+    
+    bar.style.height = `${keyRect.height * 1.25}px`;
+    bar.style.width = `${keyRect.width}px`;
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
     // distance that the white/black key animation starts relative to the bottom on the screen
@@ -32,6 +26,7 @@ function createNoteAnimation(key, reversed=false) {
         bar.remove();
     }, 5000);
 
+    // Illusion of clicking 
     setTimeout(() => {
         key.style.filter = "brightness(70%)";
     

@@ -6,7 +6,7 @@ function createPiano() {
 
     let previousKey = null;
     for (let i = 0; i < 88; i++) {
-        const note = noteFormat(i + 21)
+        const note = noteFormat(i + 21);
 
         const key = document.createElement('div');
         key.className = 'key';

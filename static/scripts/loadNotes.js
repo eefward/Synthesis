@@ -16,5 +16,4 @@ async function loadAudio(note) {
     audioStorage[2][note] = audioBuffer;
 }
 
-for (let i = 21; i <= 108; i++) 
-    loadAudio(noteFormat(i));
+for (let i = 0; i < 88; i++) loadAudio(noteFormat(i + 21));
