@@ -1,6 +1,18 @@
 import sqlite3
 import bcrypt
 
+def createUsersDB():
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 def create_database() -> None: 
     con = sqlite3.connect("songs.db", check_same_thread=False)

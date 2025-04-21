@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/login.css">
+</head>
+<body>
+  <div class="login-container">
+  
+    <h1 id="form-title">synthesis</h1>
+    <p id="form-subtitle">Log in now</p>
+  
+    <div id="forms">
+      <form id="login-form" class="login-form">
+        <input type="user" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" id="login-button">Log In</button>
+      </form>
+  
+      <form id="signup-form" class="login-form hidden">
+        <input type="text" id="signup-username" placeholder="Username" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit" id="signup-button">Register</button>
+      </form>
+    </div>
+  
+    <p class="signup">
+      Don’t have an account? <a href="#" id="toggle-form">Sign up</a>
+    </p>
+  </div>
+  <script src="/static/scripts/login.js"></script>
+</body>
+</html>

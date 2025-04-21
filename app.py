@@ -2,10 +2,10 @@ from flask import Flask, redirect, render_template, request, jsonify, session
 from flask_cors import CORS 
 import json
 import sqlite3
-
 import functions
 
 functions.createRecordingsDB()
+functions.createUsersDB()
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
@@ -14,9 +14,34 @@ CORS(app)
 def home():
     return render_template("index.html")
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    if not username or not password:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    try:
+        conn = sqlite3.connect("users.db")
+        cursor = conn.cursor()
+
+        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Signup successful!'}), 200
+
+    except sqlite3.IntegrityError:
+        return jsonify({'error': 'Username already taken'}), 409
+    except Exception as e:
+        print("Signup error:", e)
+        return jsonify({'error': 'Server error'}), 500
+
+
 @app.route("/test")
 def test():
-    return render_template("test.html")
+    return render_template("login.html")
 
 @app.route("/gallery")
 def gallery():
