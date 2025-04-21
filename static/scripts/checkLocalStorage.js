@@ -1,4 +1,4 @@
-if (localStorage.getItem('colorStorage') !== null) {
+if (localStorage.getItem('colorStorage')) {
     const rgba = JSON.parse(localStorage.getItem('colorStorage'));
 
     let msg = validCustomColorMsg();

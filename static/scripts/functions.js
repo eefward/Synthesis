@@ -13,6 +13,8 @@ function createNoteAnimation(key, reversed=false) {
     // bar.style.width = `${keyRect.width}px`;
     bar.style.height = `${keyRect.height * .5}px`
     bar.style.width = `${keyRect.width * .75}px`
+
+    bar.style.transition = `transform 5000ms linear`;
     
     bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
@@ -93,77 +95,68 @@ function validCustomColorMsg() {
 }
 
 function assignCustomColor(rgba) {
-    document.getElementById('WTR').value = rgba.white.top.red;
-    document.getElementById('WTG').value = rgba.white.top.green;
-    document.getElementById('WTB').value = rgba.white.top.blue;
-    document.getElementById('WTT').value = rgba.white.top.transparency;
+    document.querySelectorAll('.colors').forEach(color => {
+        if (color.id.length !== 3) {
+            console.log("Stop hacking rah");
+            return;
+        }
 
-    document.getElementById('WBR').value = rgba.white.bottom.red;
-    document.getElementById('WBG').value = rgba.white.bottom.green;
-    document.getElementById('WBB').value = rgba.white.bottom.blue;
-    document.getElementById('WBT').value = rgba.white.bottom.transparency;
+        const a = color.id[0]; // white/black
+        const b = color.id[1]; // top/bottom
+        const c = color.id[2]; // red/green/blue/transparency
 
-    document.getElementById('BTR').value = rgba.black.top.red;
-    document.getElementById('BTG').value = rgba.black.top.green;
-    document.getElementById('BTB').value = rgba.black.top.blue;
-    document.getElementById('BTT').value = rgba.black.top.transparency;
+        document.getElementById(`${a}${b}${c}`).value = rgba[a.toLowerCase()][b.toLowerCase()][c.toLowerCase()];
+    });
 
-    document.getElementById('BBR').value = rgba.black.bottom.red;
-    document.getElementById('BBG').value = rgba.black.bottom.green;
-    document.getElementById('BBB').value = rgba.black.bottom.blue;
-    document.getElementById('BBT').value = rgba.black.bottom.transparency;
+    document.querySelectorAll('.transparencies').forEach(transparency => {
+        if (transparency.id.length !== 3) {
+            console.log("Stop hacking rah");
+            return;
+        }
+
+        const a = transparency.id[0]; // white/black
+        const b = transparency.id[1]; // top/bottom
+        const c = transparency.id[2]; // red/green/blue/transparency
+
+        document.getElementById(`${a}${b}${c}`).value = rgba[a.toLowerCase()][b.toLowerCase()][c.toLowerCase()];
+    });
+
 
     css.innerHTML = `
-        .whiteSlidingBar {
-            background: linear-gradient(
-                135deg, 
-                rgba(${rgba.white.top.red}, ${rgba.white.top.green}, ${rgba.white.top.blue}, ${rgba.white.top.transparency}) 0%,
-                rgba(${rgba.white.bottom.red}, ${rgba.white.bottom.green}, ${rgba.white.bottom.blue}, ${rgba.white.bottom.transparency}) 100%
-            );
-            transition: transform 1s ease-out, opacity 1s ease-out;
-        }
-        .blackSlidingBar {
-            background: linear-gradient(
-                135deg, 
-                rgba(${rgba.black.top.red}, ${rgba.black.top.green}, ${rgba.black.top.blue}, ${rgba.black.top.transparency}) 0%,
-                rgba(${rgba.black.bottom.red}, ${rgba.black.bottom.green}, ${rgba.black.bottom.blue}, ${rgba.black.bottom.transparency}) 100%
-            );
-            transition: transform 1s ease-out, opacity 1s ease-out;
-        }
+        .whiteSlidingBar { background: linear-gradient(135deg, rgba(${rgba.w.t.r}, ${rgba.w.t.g}, ${rgba.w.t.b}, ${rgba.w.t.t}) 0%, rgba(${rgba.w.b.r}, ${rgba.w.b.g}, ${rgba.w.b.b}, ${rgba.w.b.t}) 100%); }
+        .blackSlidingBar { background: linear-gradient(135deg, rgba(${rgba.b.t.r}, ${rgba.b.t.g}, ${rgba.b.t.b}, ${rgba.b.t.t}) 0%, rgba(${rgba.b.b.r}, ${rgba.b.b.g}, ${rgba.b.b.b}, ${rgba.b.b.t}) 100%); }
     `;
   
     document.getElementById('customColor').selected = true;
 }
 
-
 function saveCustomColor() {
     const rgba = {
-        white: {
-            top: {
-                red: Number(document.getElementById('WTR').value), 
-                green: Number(document.getElementById('WTG').value), 
-                blue: Number(document.getElementById('WTB').value),
-                transparency: Number(document.getElementById('WTT').value)
+        w: {
+            t: {
+                r: Number(document.getElementById('WTR').value), 
+                g: Number(document.getElementById('WTG').value), 
+                b: Number(document.getElementById('WTB').value),
+                t: Number(document.getElementById('WTT').value)
             },
-            bottom: {
-                red: Number(document.getElementById('WBR').value), 
-                green: Number(document.getElementById('WBG').value), 
-                blue: Number(document.getElementById('WBB').value), 
-                transparency: Number(document.getElementById('WBT').value)
+            b: {
+                r: Number(document.getElementById('WBR').value), 
+                g: Number(document.getElementById('WBG').value), 
+                b: Number(document.getElementById('WBB').value), 
+                t: Number(document.getElementById('WBT').value)
             }
-        }, 
-        black : {
-            top: {
-                red: Number(document.getElementById('BTR').value), 
-                green: Number(document.getElementById('BTG').value), 
-                blue: Number(document.getElementById('BTB').value), 
-                transparency: Number(document.getElementById('BTT').value)
+        }, b : {
+            t: {
+                r: Number(document.getElementById('BTR').value), 
+                g: Number(document.getElementById('BTG').value), 
+                b: Number(document.getElementById('BTB').value), 
+                t: Number(document.getElementById('BTT').value)
             },
-            bottom: {
-                red: Number(document.getElementById('BBR').value), 
-                green: Number(document.getElementById('BBG').value), 
-                blue: Number(document.getElementById('BBB').value), 
-                transparency: Number(document.getElementById('BBT').value)
+            b: {
+                r: Number(document.getElementById('BBR').value), 
+                g: Number(document.getElementById('BBG').value), 
+                b: Number(document.getElementById('BBB').value), 
+                t: Number(document.getElementById('BBT').value)
             }
         }
     }

@@ -7,47 +7,23 @@ selectedColor.addEventListener('change', () => {
     
     if (color === 'Red') {
         css.innerHTML = `
-            .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(255, 0, 0, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
-            .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(139, 0, 0, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
+            .whiteSlidingBar { background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(255, 0, 0, 1) 100%); } 
+            .blackSlidingBar { background: linear-gradient(135deg, rgba(255, 99, 71, 0.9) 0%, rgba(139, 0, 0, 1) 100%); }
         `;
     } else if (color === 'Green') {
         css.innerHTML = `
-            .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(34, 139, 34, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
-            .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(0, 100, 0, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
+            .whiteSlidingBar { background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(34, 139, 34, 1) 100%); } 
+            .blackSlidingBar { background: linear-gradient(135deg, rgba(144, 238, 144, 0.9) 0%, rgba(0, 100, 0, 1) 100%); }
         `;
     } else if (color === 'Blue') {
         css.innerHTML = `
-            .whiteSlidingBar {
-                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 255, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
-            .blackSlidingBar {
-                background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 139, 1) 100%);
-                transition: transform 1s ease-out, opacity 1s ease-out;
-            }
+            .whiteSlidingBar { background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 255, 1) 100%); }
+            .blackSlidingBar { background: linear-gradient(135deg, rgba(173, 216, 230, 0.9) 0%, rgba(0, 0, 139, 1) 100%); }
         `;
     } else if (color === 'Orange') {
         css.innerHTML = `
-        .whiteSlidingBar {
-            background: linear-gradient(135deg, rgba(255, 200, 0, 0.9) 0%, rgba(255, 85, 0, 1) 100%);
-            transition: transform 1s ease-out, opacity 1s ease-out;
-        }
-        .blackSlidingBar {
-            background: linear-gradient(135deg, rgba(200, 150, 0, 0.9) 0%, rgba(200, 30, 0, 1) 100%);
-            transition: transform 1s ease-out, opacity 1s ease-out;
-        }
+            .whiteSlidingBar { background: linear-gradient(135deg, rgba(255, 200, 0, 0.9) 0%, rgba(255, 85, 0, 1) 100%); }
+            .blackSlidingBar { background: linear-gradient(135deg, rgba(200, 150, 0, 0.9) 0%, rgba(200, 30, 0, 1) 100%); }
         `;
     } else if (color === "Custom") {
         const customColorBackground = document.getElementById("background");

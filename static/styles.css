@@ -82,7 +82,7 @@ body {
 
 .white-key {
   width: 33.5px;
-  height: 150px;
+  height: 15vh;
   background: white;
   border: 1px solid #ccc;
   border-radius: 0 0 4px 4px;
@@ -94,7 +94,7 @@ body {
 
 .black-key {
   width: 23px;
-  height: 100px;
+  height: 10vh;
   background: black;
   border-radius: 0 0 3px 3px;
   position: absolute;
