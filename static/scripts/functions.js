@@ -1,44 +1,39 @@
 // -------------------------------------------------- Key animations & Recording
-function createNoteAnimation(key, reversed=false) {
+function createNoteAnimation(key, reversed = false) {
     const bar = document.createElement('div');
-    document.getElementById('slidingBars').appendChild(bar); 
+    document.getElementById('slidingBars').appendChild(bar);
     bar.classList.add('slidingBar');
 
     const keyRect = key.getBoundingClientRect();
+    const piano = document.querySelector('.piano'); 
+    const pianoRect = piano.getBoundingClientRect();
+
     if (key.classList.contains('white-key')) bar.classList.add('whiteSlidingBar');
     else if (key.classList.contains('black-key')) bar.classList.add('blackSlidingBar');
-    
-    bar.style.position = 'absolute';
-    bar.style.height = `${keyRect.height * .5}px`;
-    bar.style.width = `${keyRect.width * .75}px`;
-    bar.style.left = `${keyRect.left - 950}px`;
 
-    console.log(bar.style.left);
-    // bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
+    bar.style.position = 'fixed'; 
+    bar.style.height = `${keyRect.height * 0.5}px`;
+    bar.style.width = `${keyRect.width * 0.75}px`;
+
+    const pianoCenterOffset = window.innerWidth / 2 - pianoRect.width / 2;
+    bar.style.left = `${keyRect.left - pianoCenterOffset}px`;
 
     bar.style.transition = `transform 5000ms linear`;
 
-    // distance that the white/black key animation starts relative to the bottom on the screen
     if (reversed) {
-        bar.style.bottom = '100vh';
+        bar.style.bottom = '0';
         requestAnimationFrame(() => bar.style.transform = `translateY(100vh)`);
     } else {
         bar.style.bottom = '20vh';
         requestAnimationFrame(() => bar.style.transform = `translateY(-120vh)`);
     }
 
-    setTimeout(() => {
-        bar.remove();
-    }, 999999);
+    setTimeout(() => bar.remove(), 5000);
 
-    // Illusion of clicking 
+    // Key press effect
     setTimeout(() => {
         key.style.filter = "brightness(70%)";
-    
-        setTimeout(() => {
-            key.style.filter = "brightness(100%)";
-            key.style.backgroundColor = '';
-        }, 150); 
+        setTimeout(() => key.style.filter = "brightness(100%)", 150);
     }, reversed ? 4000 : 0);
 }
 
