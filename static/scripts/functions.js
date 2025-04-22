@@ -21,7 +21,7 @@ function createNoteAnimation(key, reversed = false) {
     bar.style.transition = `transform 5000ms linear`;
 
     if (reversed) {
-        bar.style.bottom = '0';
+        bar.style.bottom = '100vh';
         requestAnimationFrame(() => bar.style.transform = `translateY(100vh)`);
     } else {
         bar.style.bottom = '20vh';
