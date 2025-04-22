@@ -1,3 +1,4 @@
 bcrypt
 Flask
 flask-cors
+mysql-connector-python

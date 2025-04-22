@@ -1,5 +1,6 @@
 import sqlite3
 import bcrypt
+import mysql.connector
 
 def createUsersDB():
     conn = sqlite3.connect("users.db")
