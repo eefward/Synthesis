@@ -4,6 +4,21 @@ function createPiano() {
     piano.id = 'piano';
     document.body.prepend(piano);
 
+    // Adding a div to temporarily store the bar animations
+    const slidingBar = document.createElement('div');
+    slidingBar.id = 'slidingBars';
+    piano.appendChild(slidingBar);
+
+    // Create the progress bar for recordings
+    const progressBar = document.createElement('div');
+    progressBar.id = 'progressBar';
+    piano.appendChild(progressBar);
+
+    // Create a div to store the piano keys
+    const keys = document.createElement('div');
+    keys.id = 'keys';
+    piano.appendChild(keys);
+
     let previousKey = null;
     for (let i = 0; i < 88; i++) {
         const note = noteFormat(i + 21);
@@ -17,7 +32,7 @@ function createPiano() {
             key.classList.add('black-key');
             
             // it has some flaws, such as when you changed zoom percentage on broswers
-            const moveLeft = previousKey.offsetLeft + (previousKey.offsetWidth * 0.66);
+            const moveLeft = previousKey.offsetLeft + (previousKey.offsetWidth * 0.64);
             key.style.left = `${moveLeft}px`;
         } else { 
             key.classList.add('white-key');
@@ -29,13 +44,8 @@ function createPiano() {
         label.textContent = note;
 
         key.appendChild(label);
-        piano.appendChild(key);
+        keys.appendChild(key);
     }
-
-    // Create the progress bar
-    const progressBar = document.createElement('div');
-    progressBar.id = 'progressBar';
-    piano.appendChild(progressBar);
 }
 
 createPiano();

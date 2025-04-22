@@ -1,22 +1,22 @@
 // -------------------------------------------------- Key animations & Recording
 function createNoteAnimation(key, reversed=false) {
     const bar = document.createElement('div');
-    bar.style.zIndex = '-1';
     document.getElementById('slidingBars').appendChild(bar); 
-    bar.classList.add('slide-bar');
+    bar.classList.add('slidingBar');
 
     const keyRect = key.getBoundingClientRect();
     if (key.classList.contains('white-key')) bar.classList.add('whiteSlidingBar');
     else if (key.classList.contains('black-key')) bar.classList.add('blackSlidingBar');
     
-    // bar.style.height = `${keyRect.height * 1.25}px`;
-    // bar.style.width = `${keyRect.width}px`;
-    bar.style.height = `${keyRect.height * .5}px`
-    bar.style.width = `${keyRect.width * .75}px`
+    bar.style.position = 'absolute';
+    bar.style.height = `${keyRect.height * .5}px`;
+    bar.style.width = `${keyRect.width * .75}px`;
+    bar.style.left = `${keyRect.left - 950}px`;
+
+    console.log(bar.style.left);
+    // bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
     bar.style.transition = `transform 5000ms linear`;
-    
-    bar.style.left = `${keyRect.left + keyRect.width / 2 - parseFloat(bar.style.width) / 2}px`;
 
     // distance that the white/black key animation starts relative to the bottom on the screen
     if (reversed) {
@@ -29,7 +29,7 @@ function createNoteAnimation(key, reversed=false) {
 
     setTimeout(() => {
         bar.remove();
-    }, 5000);
+    }, 999999);
 
     // Illusion of clicking 
     setTimeout(() => {
