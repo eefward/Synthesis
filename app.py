@@ -4,7 +4,7 @@ import json
 import sqlite3
 
 import functions
-import mysql_connector
+# import mysql_connector
 
 # conn = mysql_connector.get_conn()
 
