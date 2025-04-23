@@ -1,25 +1,19 @@
 import sqlite3
 import bcrypt
-import mysql.connector
 
-def createUsersDB():
-    conn = sqlite3.connect("users.db")
+def createUsersDB(conn):
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
+            id INTEGER PRIMARY KEY AUTO_INCREMENT,
+            username VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL
         )
     ''')
-    conn.commit()
-    conn.close()
 
-def create_database() -> None: 
-    con = sqlite3.connect("songs.db", check_same_thread=False)
-    cur = con.cursor()
-
-    cur.execute('''
+def create_database(conn) -> None: 
+    cursor = conn.cursor()
+    cursor.execute('''
             CREATE TABLE IF NOT EXISTS users(
                 id INTEGER PRIMARY KEY,
                 username VARCHAR(25) NOT NULL,
@@ -28,7 +22,7 @@ def create_database() -> None:
                 UNIQUE(username)
             )
     ''')
-    cur.execute('''
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS songs(
             id INTEGER PRIMARY KEY,
             datetime DATETIME NOT NULL,
@@ -39,19 +33,16 @@ def create_database() -> None:
 def password_matches() -> bool:
     ...
 
-def createRecordingsDB() -> None:
-    conn = sqlite3.connect("recordings.db")
+def createRecordingsDB(conn) -> None:
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS recordings (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            user TEXT,
+            id INTEGER PRIMARY KEY,
+            title VARCHAR(255),
+            user VARCHAR(255),
             duration TEXT,
             BPM INTEGER,
             recordedNotes TEXT NOT NULL
-        )
+        );
     ''')
-    conn.commit()
-    conn.close()
 

@@ -4,12 +4,12 @@ import json
 import sqlite3
 
 import functions
-# import mysql_connector
+import mysql_connector
 
-# conn = mysql_connector.get_conn()
+conn = mysql_connector.get_conn()
 
-functions.createRecordingsDB()
-functions.createUsersDB()
+functions.createRecordingsDB(conn)
+functions.createUsersDB(conn)
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
@@ -45,8 +45,6 @@ def signup():
 
 @app.route("/test")
 def test():
-    cur = conn.cursor()
-    cur.execute("CREATE TABLE test(user INT)")
     return render_template("login.html")
 
 @app.route("/gallery")
